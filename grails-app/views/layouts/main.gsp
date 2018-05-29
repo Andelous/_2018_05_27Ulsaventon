@@ -1,47 +1,48 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>
-        <g:layoutTitle default="Grails"/>
-    </title>
+        <title>
+            <g:layoutTitle default="Desconocido"/> - ULSAVent&oacute;n
+        </title>
 
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
-    <asset:stylesheet src="application.css"/>
+        <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+        <asset:stylesheet src="application.css"/>
 
-    <style media="screen">
-        html {
-            position: relative;
-            min-height: 100%;
-        }
+        <style media="screen">
+            html {
+                position: relative;
+                min-height: 100%;
+            }
 
-        body {
-            margin-bottom: 60px; /* Margin bottom by footer height */
-        }
+            body {
+                margin-bottom: 60px; /* Margin bottom by footer height */
+            }
 
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px; /* Set the fixed height of the footer here */
-            line-height: 60px; /* Vertically center the text there */
-            background-color: #f5f5f5;
-        }
-    </style>
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 60px; /* Set the fixed height of the footer here */
+                line-height: 60px; /* Vertically center the text there */
+                background-color: #f5f5f5;
+            }
+        </style>
 
-    <g:layoutHead/>
-</head>
-<body>
-    <g:render template="/layouts/header" />
+        <g:layoutHead/>
+    </head>
 
-    <div class="container">
-        <g:layoutBody />
-    </div>
+    <body>
+        <g:render template="/layouts/header" />
 
-    <g:render template="/layouts/footer" />
+        <div class="container">
+            <g:layoutBody />
+        </div>
 
-    <asset:javascript src="application.js"/>
-</body>
+        <g:render template="/layouts/footer" />
+
+        <asset:javascript src="application.js"/>
+    </body>
 </html>

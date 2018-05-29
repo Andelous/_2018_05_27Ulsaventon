@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: _2018_05_27ulsaventon
+        defaultPackage: mx.edu.ulsaoaxaca.aventon
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
