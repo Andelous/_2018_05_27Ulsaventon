@@ -1,50 +1,47 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>
         <g:layoutTitle default="Grails"/>
     </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
 
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
     <asset:stylesheet src="application.css"/>
+
+    <style media="screen">
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin-bottom: 60px; /* Margin bottom by footer height */
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px; /* Set the fixed height of the footer here */
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
 
     <g:layoutHead/>
 </head>
 <body>
+    <g:render template="/layouts/header" />
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/#">
-		    <asset:image src="grails.svg" alt="Grails Logo"/>
-                </a>
-            </div>
-            <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <g:pageProperty name="page.nav" />
-                </ul>
-            </div>
-        </div>
+    <div class="container">
+        <g:layoutBody />
     </div>
 
-    <g:layoutBody/>
-
-    <div class="footer" role="contentinfo"></div>
-
-    <div id="spinner" class="spinner" style="display:none;">
-        <g:message code="spinner.alt" default="Loading&hellip;"/>
-    </div>
+    <g:render template="/layouts/footer" />
 
     <asset:javascript src="application.js"/>
-
 </body>
 </html>
