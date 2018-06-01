@@ -1,4 +1,16 @@
 <!doctype html>
+
+<sec:ifLoggedIn>
+    <%@ page import="mx.edu.ulsaoaxaca.aventon.Usuario" %>
+
+    <g:set var="idUsuario">
+        <sec:loggedInUserInfo field="id" />
+    </g:set>
+
+    <g:set var="usuarioLog" value="${Usuario.get(idUsuario.trim())}" />
+    <g:set var="rolLog" value="${usuarioLog.authorities[0]}" />
+</sec:ifLoggedIn>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -8,7 +20,7 @@
             <g:layoutTitle default="Desconocido"/> - ULSAVent&oacute;n
         </title>
 
-        <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+        <asset:link rel="icon" href="favicon.png" type="image/x-ico" />
         <asset:stylesheet src="application.css"/>
 
         <style media="screen">
@@ -44,5 +56,10 @@
         <g:render template="/layouts/footer" />
 
         <asset:javascript src="application.js"/>
+        <script type="text/javascript">
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
     </body>
 </html>

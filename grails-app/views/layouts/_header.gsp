@@ -1,32 +1,77 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#"><strong>ULSA</strong>vent&oacute;n</a>
+
+        <a href="/" class="navbar-brand">
+            <asset:image src="favicon.png" style="background-color: white; width:35px;" class="img-thumbnail" />
+            <strong>ULSA</strong>vent&oacute;n
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-principal" aria-controls="nav-principal" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="nav-principal">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
+
+                <sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+
+                    <li class="nav-item rounded dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#"
+                            id="menuUsuarios" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+
+                            <span class="oi oi-people text-white"></span> &nbsp;Usuarios
+
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="menuUsuarios">
+                            <g:link action="index" controller="usuarios" class="dropdown-item">Listado</g:link>
+                            <g:link action="guardar" controller="usuarios" class="dropdown-item">Nuevo</g:link>
+                        </div>
+                    </li>
+
+                </sec:ifAnyGranted>
+
+
+                <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
+
+                    <li class="nav-item rounded">
+                        <g:link class="nav-link text-white"><span class="oi oi-location" style="color:yellow;">
+                            </span> &nbsp;Aventones
+                        </g:link>
+                    </li>
+
+                </sec:ifAnyGranted>
+
+
             </ul>
+
+
             <form class="form-inline my-2 my-md-0">
-                <input class="form-control" type="text" placeholder="Search">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido, <strong>${usuarioLog.persona.nombres}</strong></button>
+                        <div class="dropdown-menu w-100">
+                            <a class="dropdown-item text-center disabled" href="#"><strong>${rolLog}</strong></a>
+                            <a class="dropdown-item text-center disabled bg-dark text-light" href="#">${usuarioLog.username}</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
+                                <a class="dropdown-item" href="#">
+                                    Mi veh&iacute;culo
+                                    <span class="oi oi-key float-right" style="color:darkblue"></span>
+                                </a>
+                                <g:link class="dropdown-item" controller="ruta">
+                                    Configurar ruta
+                                    <span class="oi oi-map float-right" style="color:darkblue"></span>
+                                </g:link>
+                            </sec:ifAnyGranted>
+                            <g:link class="dropdown-item" action="perfil" controller="usuarios">
+                                Mi perfil
+                                <span class="oi oi-person float-right" style="color:darkblue"></span>
+                            </g:link>
+                        </div>
+                    </div>
+
+                    <a href="/logoff" class="btn btn-sm btn-danger">Cerrar sesi&oacute;n</a>
+                </div>
             </form>
         </div>
     </div>

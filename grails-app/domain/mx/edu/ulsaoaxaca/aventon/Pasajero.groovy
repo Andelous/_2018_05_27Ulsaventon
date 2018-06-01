@@ -1,7 +1,8 @@
 package mx.edu.ulsaoaxaca.aventon
 
 class Pasajero {
-    Usuario usuario
+    static belongsTo = [usuario: Usuario]
+    static hasMany = [solicitudes: Solicitud]
 
     Double obtenerPuntuacion() {
 

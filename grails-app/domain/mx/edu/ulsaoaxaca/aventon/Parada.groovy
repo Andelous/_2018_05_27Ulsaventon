@@ -5,10 +5,12 @@ class Parada {
     String colonia
     String descripcion
 
-    List rutas
     static hasMany = [rutas: Ruta]
     static belongsTo = Ruta
 
     static constraints = {
+        calle size: 1..100, matches: "^[a-zA-Z#1234567890àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+\$"
+        colonia size: 1..100, matches: "^[a-zA-Z#1234567890àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+\$"
+        descripcion size: 1..100, matches: "^[a-zA-Z#1234567890àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+\$"
     }
 }

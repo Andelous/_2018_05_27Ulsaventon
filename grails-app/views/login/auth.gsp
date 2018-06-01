@@ -15,19 +15,23 @@
     </head>
 
     <body class="text-center">
-        <form class="form-signin">
-            <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Por favor, inicia sesi&oacute;n</h1>
+        <g:form class="form-signin" action="authenticate" controller="login">
+            <asset:image src="lasalle.png" style="width:100%;background-color: white;" class="p-3 img-thumbnail" />
 
-            <label for="inputEmail" class="sr-only">Usuario</label>
-            <input type="text" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
+            <br />
+            <br />
+
+            <h1 class="h3 mb-3 font-weight-normal"><strong>ULSA</strong>vent&oacute;n</h1>
+
+            <label for="inputEmail" class="sr-only">Usuario o matr&iacute;cula</label>
+            <input type="text" name="username" class="form-control" placeholder="Usuario o matr&iacute;cula" required autofocus>
 
             <label for="inputPassword" class="sr-only">Contrase&ntilde;a</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Contrase&ntilde;a" required>
+            <input type="password" name="password" class="form-control" placeholder="Contrase&ntilde;a" required>
 
             <button class="btn btn-primary btn-block" type="submit">Entrar</button>
 
-            <p class="mt-5 mb-3 text-muted">&copy; Universidad La Salle Oaxaca</p>
-        </form>
+            <p class="mt-5 mb-3 text-muted">&copy; Universidad La Salle Oaxaca, 2018</p>
+        </g:form>
     </body>
 </html>

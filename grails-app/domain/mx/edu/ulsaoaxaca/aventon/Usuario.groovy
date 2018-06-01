@@ -11,7 +11,10 @@ class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1
 
-    Persona persona    
+    Persona persona
+
+    Chofer chofer
+    Pasajero pasajero
 
     String username
     String password
@@ -26,7 +29,8 @@ class Usuario implements Serializable {
 
     static constraints = {
         password nullable: false, blank: false, password: true
-        username nullable: false, blank: false, unique: true
+        username nullable: false, blank: false, unique: true, matches: "^[a-zA-Z1234567890]+\$"
+        persona unique: true
     }
 
     static mapping = {

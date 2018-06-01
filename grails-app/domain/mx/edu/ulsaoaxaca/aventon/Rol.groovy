@@ -8,6 +8,8 @@ import grails.compiler.GrailsCompileStatic
 @EqualsAndHashCode(includes='authority')
 @ToString(includes='authority', includeNames=true, includePackage=false)
 class Rol implements Serializable {
+    public static final String ADMINISTRADOR = 'ROLE_ADMINISTRADOR'
+    public static final String BENEFICIARIO = 'ROLE_BENEFICIARIO'
 
 	private static final long serialVersionUID = 1
 
@@ -20,4 +22,15 @@ class Rol implements Serializable {
 	static mapping = {
 		cache true
 	}
+
+    String toString() {
+        switch(authority) {
+            case ADMINISTRADOR:
+                return "Administrador"
+            case BENEFICIARIO:
+                return "Beneficiario"
+            default:
+                return "Desconocido"
+        }
+    }
 }
