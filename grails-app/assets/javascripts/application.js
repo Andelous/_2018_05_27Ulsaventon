@@ -8,5 +8,6 @@
 //= require jquery
 //= require popper
 //= require bootstrap
+//= require datatables
 //= require_tree .
 //= require_self

@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
 
-@Secured([Rol.BENEFICIARIO)
+@Secured(Rol.BENEFICIARIO)
 @Transactional(readOnly = false)
 class AventonesController {
     def springSecurityService
