@@ -1,8 +1,10 @@
 package mx.edu.ulsaoaxaca.aventon
 
+import grails.validation.ValidationException
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
+
 
 @Secured(Rol.BENEFICIARIO)
 @Transactional(readOnly = false)
@@ -16,7 +18,7 @@ class AventonesController {
     }
 
     // Ver todos los aventones que he dado y he pedido
-    def misAventones() {
+    def misAventones() {    
         def u = springSecurityService.currentUser
 
         def aventonesDados = Aventon.where {
@@ -46,8 +48,35 @@ class AventonesController {
 
     }
 
-    // Para crear un aventón
-    def crear() {
+    def save(Aventon aventon){
 
+        print(params.fecha)
+        if (aventon == null) {
+            notFound()
+            return
+        }
+        def u = springSecurityService.currentUser
+        aventon.chofer=u.chofer
+        aventon.estado="En espera"
+
+        try {
+            aventon.save(failOnError: true, flush:true)
+        } catch (ValidationException e) {
+            println e
+            respond aventon.errors, view:'create'
+            return
+        }
+
+        flash.icon = "check"
+        flash.messageType = "success"
+        flash.title = "Aventón Registrado!"
+        flash.message = "El aventón ha sido registrado correctamente"
+
+        redirect(action: "index", params:[aventon: aventon])
+    }
+
+    // Para crear un aventón
+    def create() {
+        respond new Aventon(params)
     }
 }

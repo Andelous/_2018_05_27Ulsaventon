@@ -12,5 +12,7 @@ class Aventon {
 
     static constraints = {
         limite min: 1, max: 10
+        estado nullable:true
+        chofer nullable:true
     }
 }
