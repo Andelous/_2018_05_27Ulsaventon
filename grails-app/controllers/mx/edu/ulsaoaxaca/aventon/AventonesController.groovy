@@ -33,15 +33,15 @@ class AventonesController {
     }
 
     // Para solicitar un aventón
-    def buscar() {
+    def buscar(String q) {
 
     }
 
-    def ver() {
+    def ver(Aventon a) {
 
     }
 
-    def solicitar() {
+    def solicitar(Aventon a) {
 
     }
 
