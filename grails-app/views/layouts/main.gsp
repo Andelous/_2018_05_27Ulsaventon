@@ -22,6 +22,9 @@
 
         <asset:link rel="icon" href="favicon.png" type="image/x-ico" />
         <asset:stylesheet src="application.css"/>
+        <asset:stylesheet rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/r-2.2.1/datatables.min.css"/>
+        <asset:javascript type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/r-2.2.1/datatables.min.js"/>
+        
 
         <style media="screen">
             html {
@@ -62,7 +65,7 @@
         <script type="text/javascript">
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
-            })
+            });
         </script>
     </body>
 </html>
