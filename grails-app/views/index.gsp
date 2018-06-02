@@ -2,76 +2,80 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>Bienvenido</title>
 </head>
 <body>
-    <content tag="nav">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Environment: ${grails.util.Environment.current.name}</a></li>
-                <li><a href="#">App profile: ${grailsApplication.config.grails?.profile}</a></li>
-                <li><a href="#">App version:
-                    <g:meta name="info.app.version"/></a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Grails version:
-                    <g:meta name="info.app.grailsVersion"/></a>
-                </li>
-                <li><a href="#">Groovy version: ${GroovySystem.getVersion()}</a></li>
-                <li><a href="#">JVM version: ${System.getProperty('java.version')}</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Controllers: ${grailsApplication.controllerClasses.size()}</a></li>
-                <li><a href="#">Domains: ${grailsApplication.domainClasses.size()}</a></li>
-                <li><a href="#">Services: ${grailsApplication.serviceClasses.size()}</a></li>
-                <li><a href="#">Tag Libraries: ${grailsApplication.tagLibClasses.size()}</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                    <li><a href="#">${plugin.name} - ${plugin.version}</a></li>
-                </g:each>
-            </ul>
-        </li>
-    </content>
 
-    <div class="svg" role="presentation">
-        <div class="grails-logo-container">
-            <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
+    <br />
+
+    <div class="row">
+        <div class="col-md">
+            <h4>Acceso r&aacute;pido</h4>
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <a href="#" class="btn btn-light btn-block">
+                        <br />
+                        <br />
+                        <span class="oi oi-location text-success" style="font-size:4em"></span>
+                        <br />
+                        <br />
+                        <strong style="font-size:1em">Mis aventones</strong>
+                    </a>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <g:link controller="usuarios" action="perfil" class="btn btn-light btn-block">
+                        <br />
+                        <br />
+                        <span class="oi oi-person text-info" style="font-size:4em"></span>
+                        <br />
+                        <br />
+                        <strong style="font-size:1em">Mi perfil</strong>
+                    </g:link>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <g:link controller="vehiculo" class="btn btn-light btn-block">
+                        <br />
+                        <br />
+                        <span class="oi oi-key p-2 rounded ml-2"
+                            style="font-size:3em; color:goldenrod;">
+                        </span>
+                        <br />
+                        <br />
+                        <strong style="font-size:1em">Mi veh&iacute;culo</strong>
+                    </g:link>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <g:link controller="ruta" class="btn btn-light btn-block">
+                        <br />
+                        <br />
+                        <span class="oi oi-map p-2 rounded ml-2"
+                            style="font-size:3.2em; color:rgb(230, 50, 0);">
+                        </span>
+                        <br />
+                        <br />
+                        <strong style="font-size:1em">Mi ruta</strong>
+                    </g:link>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md">
+            <h4 class="text-center">Los mejores <strong>choferes</strong></h4>
+            <hr />
+        </div>
+
+        <div class="col-md">
+            <h4 class="text-center">Los mejores <strong>pasajeros</strong></h4>
+            <hr />
         </div>
     </div>
 
-    <div id="content" role="main">
-        <section class="row colset-2-its">
-            <h1>Welcome to Grails</h1>
 
-            <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
-            </p>
-
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                        </li>
-                    </g:each>
-                </ul>
-            </div>
-        </section>
-    </div>
 
 </body>
 </html>

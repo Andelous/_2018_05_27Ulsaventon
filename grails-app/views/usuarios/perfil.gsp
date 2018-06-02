@@ -36,7 +36,7 @@
                         </div>
 
                         <g:if test="${usuario.chofer.vehiculo}">
-                            <p class="text-center">Tiene un vehículo con las siguientes caracter&iacute;sticas:</p>
+                            <p class="text-center bg-dark text-white py-1">Tiene un <strong>veh&iacute;culo</strong> con las siguientes caracter&iacute;sticas:</p>
 
                             <div class="form-group row">
                                 <label class="col-md-5 col-form-label">

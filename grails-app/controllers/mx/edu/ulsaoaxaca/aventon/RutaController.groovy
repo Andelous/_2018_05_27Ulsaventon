@@ -13,7 +13,7 @@ class RutaController {
     static allowedMethods = [
         index: "GET",
         seleccionarParada: "GET",
-        buscarParada: "GET",
+        buscarParadas: "GET",
         crearParada: "POST",
         agregarParadaRuta: "POST",
         quitarParadaRuta: "POST",
@@ -58,14 +58,19 @@ class RutaController {
         println ""
         println ""
 
+        q = "%" + q + "%"
+
         def paradas = Parada.where {
             calle =~ q ||
             colonia =~ q ||
             descripcion =~ q
         }.list()
 
+        println paradas
+        println Parada.list()
+
         response.status = 200
-        render parada as JSON
+        render paradas as JSON
     }
 
     def crearParada(Parada parada) {
@@ -81,11 +86,10 @@ class RutaController {
             println ""
             println ""
             response.status = 200
-            render parada as JSON
-            return
+        } else {
+            response.status = 204
         }
 
-        response.status = 204
         render parada as JSON
         return
     }
@@ -103,20 +107,20 @@ class RutaController {
         println ""
         println ""
 
+        ruta.removeFromParadas(parada)
+
         def posicion = (params.i ?: ruta.paradas.size()).toInteger()
 
-        ruta.removeFromParadas(parada)
         ruta.paradas.add(posicion, parada)
         if (ruta.save()) {
             println "Guardado!"
             println ""
             println ""
             response.status = 200
-            render ruta.paradas as JSON
-            return
+        } else {
+            response.status = 204
         }
 
-        response.status = 204
         render ruta.paradas as JSON
         return
     }
@@ -135,11 +139,10 @@ class RutaController {
             println ""
             println ""
             response.status = 200
-            render ruta.paradas as JSON
-            return
+        } else {
+            response.status = 204
         }
 
-        response.status = 204
         render ruta.paradas as JSON
         return
     }
@@ -156,11 +159,10 @@ class RutaController {
             println ""
             println ""
             response.status = 200
-            render ruta as JSON
-            return
+        } else {
+            response.status = 204
         }
 
-        response.status = 204
         render ruta as JSON
         return
     }

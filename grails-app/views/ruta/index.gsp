@@ -70,7 +70,7 @@
                                     idParada="${it.id}" onclick="activarBoton(this)" pos="${i++}">
                                     <strong>${it.calle}</strong>,
                                     Col. ${it.colonia}
-                                    <small class="text-muted">
+                                    <small>
                                         (${it.descripcion})
                                     </small>
                                 </button>
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="col-md">
-                        <h4 class="text-center">Información de la ruta</h4>
+                        <h4 class="text-center">Informaci&oacute;n de la ruta</h4>
                         <p class="text-center">
                             <small class="text-muted">Esto ayudar&aacute; a que otros
                                 usuarios puedan encontrar tus aventones f&aacute;cilmente
@@ -148,7 +148,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label>Calles</label>
+                            <label>Lugar o calle(s)</label>
                             <input type="text" id="txtCalles" class="form-control form-control-sm">
                         </div>
 
@@ -177,7 +177,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Crea una nueva parada</h5>
+                        <h5 class="modal-title">Busca una parada existente</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -187,25 +187,26 @@
 
                         </div>
                         <div class="form-group">
-                            <label>Calles</label>
-                            <input type="text" id="txtCalles" class="form-control form-control-sm">
+                            <label>Calle, colonia o referencia</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="txtQ" class="form-control form-control-sm" placeholder="Lo que gustes">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sm btn-outline-secondary" type="button" onclick="buscarParadas()">
+                                        <span class="oi oi-magnifying-glass"></span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Colonia</label>
-                            <input type="text" id="txtColonia" class="form-control form-control-sm">
-                        </div>
+                        <div class="list-group" id="divCoincidencias">
 
-                        <div class="form-group">
-                            <label>Referencias</label>
-                            <input type="text" id="txtReferencias" class="form-control form-control-sm">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary"
-                            onclick="crearAgregarParada();">
-                            Crear y agregar
+                            onclick="agregarParada();">
+                            Agregar seleccionada
                         </button>
                     </div>
                 </div>
@@ -228,6 +229,16 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>`;
+
+            var plantillaParadaBuscar =
+                `<button class="list-group-item list-group-item-action"
+                    idParada="@id" onclick="activarBotonBusqueda(this)" pos="@i">
+                    <strong>@calle</strong>,
+                    Col. @colonia
+                    <small>
+                        (@descripcion)
+                    </small>
+                </button>`;
 
 
             // Ruta
@@ -367,9 +378,81 @@
                     );
                 }
             }
-        </script>
 
-        <br />
-        <br />
+            var txtQ = document.getElementById("txtQ");
+            var divCoincidencias = document.getElementById("divCoincidencias");
+            function buscarParadas() {
+                $.get(
+                    '${createLink(action: 'buscarParadas', controller: 'ruta')}',
+                    {
+                        'q': txtQ.value
+                    }, function (data, status) {
+                        console.log("Buscar paradas");
+                        console.log(data);
+                        console.log(status);
+                        console.log();
+                        console.log();
+
+                        switch (status) {
+                            case 'success':
+                                console.log("miau");
+                                divCoincidencias.innerHTML = "";
+
+                                var i = 0;
+
+                                data.forEach(function(obj) {
+                                    divCoincidencias.innerHTML +=
+                                        plantillaParadaBuscar.
+                                            replace("@id", obj.id).
+                                            replace("@i", i++).
+                                            replace("@calle", obj.calle).
+                                            replace("@colonia", obj.colonia).
+                                            replace("@descripcion", obj.descripcion);
+                                });
+                                break;
+                            default:
+                                console.log("Algo salió mal");
+                        }
+                    }
+                );
+            }
+
+            var botonActivoBusqueda = null;
+            function activarBotonBusqueda(btn) {
+                console.log(btn)
+                if (botonActivoBusqueda) {
+                    botonActivoBusqueda.classList.toggle("active");
+                }
+                btn.classList.toggle("active");
+                botonActivoBusqueda = btn;
+            }
+
+            function agregarParada() {
+                if (botonActivoBusqueda) {
+                    $.post(
+                        '${createLink(action:'agregarParadaRuta', controller: 'ruta')}',
+                        {
+                            'parada.id': botonActivoBusqueda.getAttribute("idParada"),
+                            'ruta.id': ${ruta.id}
+                        }, function (data, status) {
+                            console.log("Agregar parada de búsqueda");
+                            console.log(data);
+                            console.log(status);
+                            console.log();
+                            console.log();
+
+                            switch (status) {
+                                case 'success':
+                                    console.log("miau");
+                                    location.reload();
+                                    break;
+                                default:
+                                    console.log("Algo salió mal");
+                            }
+                        }
+                    );
+                }
+            }
+        </script>
     </body>
 </html>

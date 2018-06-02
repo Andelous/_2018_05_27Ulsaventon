@@ -5,6 +5,7 @@ class Aventon {
 
     String estado
     Integer limite
+    String hora
     Date fecha
 
     static hasMany = [solicitudes: Solicitud]

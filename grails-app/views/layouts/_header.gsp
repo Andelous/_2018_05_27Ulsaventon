@@ -54,10 +54,10 @@
                             <a class="dropdown-item text-center disabled bg-dark text-light" href="#">${usuarioLog.username}</a>
                             <div role="separator" class="dropdown-divider"></div>
                             <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
-                                <a class="dropdown-item" href="#">
+                                <g:link class="dropdown-item" controller="vehiculo">
                                     Mi veh&iacute;culo
                                     <span class="oi oi-key float-right" style="color:darkblue"></span>
-                                </a>
+                                </g:link>
                                 <g:link class="dropdown-item" controller="ruta">
                                     Configurar ruta
                                     <span class="oi oi-map float-right" style="color:darkblue"></span>

@@ -53,6 +53,9 @@
             <g:layoutBody />
         </div>
 
+        <br />
+        <br />
+
         <g:render template="/layouts/footer" />
 
         <asset:javascript src="application.js"/>
