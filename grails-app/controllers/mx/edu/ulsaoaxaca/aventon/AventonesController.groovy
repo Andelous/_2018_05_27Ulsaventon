@@ -18,14 +18,14 @@ class AventonesController {
 
     // Ver todos los aventones que he dado y he pedido
     def misAventones() {
-        def u = springSecurityService.currentUser
+        def u = springSecurityService.loadCurrentUser()
 
         def aventonesDados = Aventon.where {
-            chofer.id == u.chofer.id
+            chofer.usuario.id == u.id
         }.list()
 
         def aventonesPedidos = Solicitud.where {
-            pasajero.id == u.pasajero.id
+            pasajero.usuario.id == u.id
         }.list()
 
         [
@@ -36,7 +36,7 @@ class AventonesController {
 
     // Para solicitar un aventón
     def buscar(String q) {
-        q = q ?: ''
+        q = q.toLowerCase() ?: ''
         def u = springSecurityService.loadCurrentUser()
         def fechaHoy = new Date()
 
@@ -72,8 +72,8 @@ class AventonesController {
             }
 
             if (
-                ruta.nombre.contains(q) ||
-                ruta.descripcion.contains(q)
+                ruta.nombre.toLowerCase().contains(q) ||
+                ruta.descripcion.toLowerCase().contains(q)
             ) {
                 aventones.add(aventon)
                 continue
@@ -81,9 +81,9 @@ class AventonesController {
 
             for (parada in paradas) {
                 if (
-                    parada.calle.contains(q) ||
-                    parada.colonia.contains(q) ||
-                    parada.descripcion.contains(q)
+                    parada.calle.toLowerCase().contains(q) ||
+                    parada.colonia.toLowerCase().contains(q) ||
+                    parada.descripcion.toLowerCase().contains(q)
                 ) {
                     aventones.add(aventon)
                     break
@@ -142,7 +142,11 @@ class AventonesController {
     def crear() {
         def u = springSecurityService.currentUser
 
-        if (!u.chofer.vehiculo || u.chofer.ruta?.paradas.size() == 0) {
+        if (
+            !u.chofer.vehiculo ||
+            !u.chofer.ruta ||
+            u.chofer.ruta.paradas.size() == 0
+        ) {
             redirect controller: "aventones", params: [errorCrear: 1]
         }
 
@@ -201,6 +205,21 @@ class AventonesController {
             return
         }
 
-        redirect action: "verSolicitudes", params: [estado: estado]
+        println "Cambiar estado"
+        println ""
+        println params
+        println estado
+        println solicitud
+        println ""
+
+        solicitud.estado = estado
+        def intento = solicitud.save()
+
+        println intento
+        println ""
+        println ""
+        println ""
+
+        redirect action: "verSolicitudes", params: [estado: estado, intento: intento, 'aventon.id': solicitud.aventon.id]
     }
 }

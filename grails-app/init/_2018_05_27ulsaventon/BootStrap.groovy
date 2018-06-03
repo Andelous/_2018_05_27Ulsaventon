@@ -45,6 +45,16 @@ class BootStrap {
             UsuarioRol.create usuarioAdministrador, rolAdministrador
         }
 
+
+
+
+
+
+
+        // -----------------
+        // CÓDIGO de pruebas
+        // -----------------
+
         if (!Usuario.find { username == "014230035" }) {
             def personaBeneficiario1 =
                 new Persona(
@@ -55,10 +65,47 @@ class BootStrap {
             def usuarioBeneficiario1 =
                 new Usuario(
                     username: "014230035",
-                    password: "Mexico.2018",
+                    password: "123",
                     persona: personaBeneficiario1,
                     chofer: new Chofer(),
                     pasajero: new Pasajero()).save()
+
+            def rutaBeneficiario1 = new Ruta(
+                nombre: "Estadio Vasconcelos a La Salle",
+                descripcion: "Paso por los siguientes puntos...")
+
+            usuarioBeneficiario1.chofer.ruta = rutaBeneficiario1
+            usuarioBeneficiario1.chofer.save()
+
+            def parada1 = new Parada(
+                calle: "Estadio de baseball",
+                colonia: "Reforma",
+                descripcion: "Frente al estadio")
+
+            def parada2 = new Parada(
+                calle: "Clínica del ISSSTE",
+                colonia: "Cinco Señores",
+                descripcion: "Frente a la secundaria técnica 1")
+
+            def parada3 = new Parada(
+                calle: "Agencia Toyota",
+                colonia: "Centro",
+                descripcion: "Frente a Chedraui de Candiani")
+
+            usuarioBeneficiario1.chofer.ruta.addToParadas(parada1)
+            usuarioBeneficiario1.chofer.ruta.addToParadas(parada2)
+            usuarioBeneficiario1.chofer.ruta.addToParadas(parada3)
+
+            usuarioBeneficiario1.chofer.ruta.save()
+
+            usuarioBeneficiario1.chofer.vehiculo = new Vehiculo(
+                placas: "123 AB CDE",
+                modelo: "Chevrolet Sonic",
+                color: "Plateado",
+                ano: 2015
+            )
+            usuarioBeneficiario1.chofer.save()
+
 
             println personaBeneficiario1
             println usuarioBeneficiario1
@@ -76,7 +123,7 @@ class BootStrap {
             def usuarioBeneficiario2 =
                 new Usuario(
                     username: "014230001",
-                    password: "Mexico.2018",
+                    password: "123",
                     persona: personaBeneficiario2,
                     chofer: new Chofer(),
                     pasajero: new Pasajero()).save()
@@ -85,6 +132,27 @@ class BootStrap {
             println usuarioBeneficiario2
 
             UsuarioRol.create usuarioBeneficiario2, rolBeneficiario
+        }
+
+        if (!Usuario.find { username == "014230027" }) {
+            def personaBeneficiario3 =
+                new Persona(
+                    nombres: "Roberto Javier",
+                    apellidoPaterno: "Zúñiga",
+                    apellidoMaterno: "Cruz")
+
+            def usuarioBeneficiario3 =
+                new Usuario(
+                    username: "014230027",
+                    password: "123",
+                    persona: personaBeneficiario3,
+                    chofer: new Chofer(),
+                    pasajero: new Pasajero()).save()
+
+            println personaBeneficiario3
+            println usuarioBeneficiario3
+
+            UsuarioRol.create usuarioBeneficiario3, rolBeneficiario
         }
 
     }

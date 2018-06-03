@@ -19,6 +19,23 @@
           </ol>
         </nav>
 
+        <div class="row">
+            <div class="col-md">
+                <h4>Busca un aventón por donde quieres subir</h4>
+            </div>
+
+            <div class="col-md">
+                <g:form action="buscar" controller="aventones" method="GET">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Calle, colonia, lugar, referencia, etc." value="${params.q}">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit"><span class="oi oi-search"></span> Buscar</button>
+                    </div>
+                </div>
+                </g:form>
+            </div>
+        </div>
+
         <br />
 
         <table class="table" id="aventonesBuscados">
@@ -26,7 +43,6 @@
                 <tr class="text-center">
                     <th scope="col">Chofer</th>
                     <th scope="col">Máx. pasajeros</th>
-                    <th scope="col">Pasajeros actuales</th>
                     <th scope="col">Fecha y hora de salida</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -37,7 +53,6 @@
                     <tr>
                         <td><g:link class="text-left" action="perfil" controller="usuarios" id="${it.chofer.usuario.id}" class="">${it.chofer.usuario.persona.nombres}, ${it.chofer.usuario.username}</g:link></td>
                         <td>${it.limite}</td>
-                        <td>${it.solicitudes.findAll { estado == 'Aceptada' }.size() }</td>
                         <td>${it.fecha.format('dd/MM/yyyy') + ' a las ' + it.hora}</td>
                         <td>
                             <div class="btn-group">

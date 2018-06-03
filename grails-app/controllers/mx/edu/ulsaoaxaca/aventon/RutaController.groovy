@@ -151,6 +151,8 @@ class RutaController {
         println "Guardar ruta"
         println ruta
         println params
+        println ruta.validate()
+        println ruta.errors
         println ""
         println ""
 

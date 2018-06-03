@@ -71,7 +71,6 @@
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th scope="col">Máx. pasajeros</th>
-                        <th scope="col">Pasajeros actuales</th>
                         <th scope="col">Fecha y hora de salida</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -81,7 +80,6 @@
                     <g:each in="${aventonesDados}">
                         <tr>
                             <td>${it.limite}</td>
-                            <td>${it.solicitudes.findAll { estado == 'Aceptada' }.size() }</td>
                             <td>${it.fecha.format('dd/MM/yyyy') + ' a las ' + it.hora}</td>
                             <td>
                                 <g:link action="ver" controller="aventones" id="${it.id}" class="btn btn-outline-secondary btn-sm">
@@ -113,7 +111,12 @@
                 <tbody>
                     <g:each in="${aventonesPedidos}">
                         <tr class="text-center">
-                            <td>${it.estado}</td>
+                            <td class="${
+                                it.estado == 'Aceptada' ?
+                                    'text-success' :
+                                it.estado == 'Rechazada' ?
+                                    'text-danger' : 'text-warning'
+                            }">${it.estado}</td>
                             <td><strong>${it.parada.calle}</strong></td>
                             <td>${it.aventon.fecha.format('dd/MM/yyyy') + ' a las ' + it.aventon.hora}</td>
                             <td><g:link class="text-left" action="perfil" controller="usuarios" id="${it.aventon.chofer.usuario.id}" class="">${it.aventon.chofer.usuario.persona.nombres}</g:link></td>

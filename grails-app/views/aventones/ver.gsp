@@ -124,24 +124,24 @@
                                 ${aventon.limite - solicitudesAceptadas.size()}
                             </td>
                         </tr>
-                    	<tr class="list-group-item">
-                            <g:if test="${aventon.solicitudes.size()==0}">
+                        <g:if test="${aventon.solicitudes.size()==0}">
+                            <tr>
                                 <th scope="row">No hay pasajeros</th>
-                            </g:if>
-                            <g:else>
-                                <g:each in="${aventon.solicitudes}">
-                                    <g:if test="${it.estado=='Aceptado'}">
-                                        <th scope="row">
-                                            <g:link class="text-left" action="ver" controller="usuarios" id="${it.pasajero.usuario.id}" class="">${it.pasajero.username}</g:link>
-                                        </th>
-                                        <td class="">
-                                            ${it.parada.calle}-${it.parada.colonia}
-                                        </td>
-                                    </g:if>
-                                </g:each>
-                            </g:else>
-
-                        </tr>
+                            </tr>
+                        </g:if>
+                        <g:each in="${aventon.solicitudes}">
+                        	<tr class="list-group-item">
+                                <g:if test="${it.estado=='Aceptada'}">
+                                    <td scope="row">
+                                        <g:link class="text-left" action="perfil" controller="usuarios" id="${it.pasajero.usuario.id}" class="">
+                                            ${it.pasajero.usuario.persona},
+                                            ${it.pasajero.usuario.username}
+                                        </g:link>
+                                        sube en <strong>${it.parada.calle}</strong>, ${it.parada.colonia} (<small>${it.parada.descripcion}</small>)
+                                    </td>
+                                </g:if>
+                            </tr>
+                        </g:each>
                     </tbody>
                 </table>
 

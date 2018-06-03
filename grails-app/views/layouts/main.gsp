@@ -66,9 +66,16 @@
             });
 
             $(document).ready(function() {
-                $('#aventonesDados').DataTable();
-                $('#aventonesPedidos').DataTable();
-                $('#aventonesBuscados').DataTable({searching:false});
+                $('#aventonesDados').DataTable({
+                    "order": [1, 'desc']
+                });
+                $('#aventonesPedidos').DataTable({
+                    "order": [2, 'desc']
+                });
+                $('#aventonesBuscados').DataTable({
+                    "searching": false,
+                    "order": [2, 'asc']
+                });
             } );
         </script>
     </body>
