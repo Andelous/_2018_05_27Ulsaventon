@@ -8,6 +8,12 @@
 
 <body>
 	<br>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Aventones</li>
+      </ol>
+    </nav>
 	<g:if test="${flash.message}">
         <div class="alert alert-${flash.messageType} alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

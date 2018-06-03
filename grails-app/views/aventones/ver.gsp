@@ -6,10 +6,18 @@
         <title>Aventon</title>
     </head>
 <body>
-
-
+    <br>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item" aria-current="page">
+            <g:link class="text-left" action="index" controller="aventones"class="">Aventones</g:link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+      </ol>
+    </nav>
 	<div class="container">
-		<br>
+		
 		<h2 class="text-center">Detalle del aventón #${aventon.id}</h2>
 		<hr>
 		<div class="row">
@@ -35,12 +43,6 @@
 			  <div class="card-body">
 			    <h5 class="card-title text-center">Información general del aventón</h5>
 				<table class="table-sm table-hover list-group list-group-flush">
-					<tr class="list-group-item">
-                            <th scope="row">Chofer: </th>
-                            <td class="">
-              					<g:link class="text-left" action="ver" controller="usuarios" id="${aventon.chofer.usuario.id}" class="">${aventon.chofer.usuario.username}</g:link>
-                            </td>
-                    </tr>
                     <tbody>
                     	<tr class="list-group-item">
                             <th scope="row">Chofer: </th>
@@ -60,56 +62,86 @@
                                 ${aventon.hora}
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h5 class="card-title text-center">Información de la ruta</h5>
+                <table class="table-sm table-hover list-group list-group-flush">
+                    <tbody>
+                        <tr class="list-group-item">
+                            <th scope="row">Nombre de la ruta: </th>
+                            <td class="">
+                                ${aventon.chofer.ruta!=null?aventon.chofer.ruta.nombre:"No existe la ruta"}
+                            </td>
+                        </tr>
+                        <tr class="list-group-item">
+                            <th scope="row">Descripción</th>
+                            <td class="">
+                                 ${aventon.chofer.ruta!=null?aventon.chofer.ruta.nombre:"No hay descripción de la ruta"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h5 class="card-title text-center">Paradas</h5>
+                <table class="table-sm table-hover list-group list-group-flush">
+                    <tbody>
+                        <g:if test="${aventon.chofer.ruta==null}">
+                            <tr class="list-group-item">
+                                <th scope="row">No hay paradas</th>
+                            </tr>
+                        </g:if>
+                        <g:else>
+                            <g:if test="${aventon.chofer.ruta.paradas==null}">
+                                <tr class="list-group-item">
+                                    <th scope="row">No hay paradas</th>
+                                </tr>
+                            </g:if>
+                            <g:else>
+                                <g:each in="${aventon.chofer.ruta.paradas}">
+                                    <tr class="list-group-item">
+                                        <th scope="row">${it.calle}</th>
+                                        <td class="">${it.colonia}</td>
+                                    </tr>
+                                </g:each>
+                                
+                            </g:else>
+                            
+                        </g:else>
+                        
                     </tbody>
                 </table>
                 <br>
                 <h5 class="card-title text-center">Información de los pasajeros</h5>
                 <table class="table-sm table-hover list-group list-group-flush">
                     <tbody>
+                        <tr class="list-group-item">
+                            <th scope="row">Número de pasajeros disponibles: </th>
+                            <td class="">
+                                ${aventon.limite - aventon.solicitudes.size()}
+                            </td>
+                        </tr>
                     	<tr class="list-group-item">
-                            <th scope="row">Chofer: </th>
-                            <td class="">
-              					<g:link class="text-left" action="ver" controller="usuarios" id="${aventon.chofer.usuario.id}" class="">${aventon.chofer.usuario.username}</g:link>
-                            </td>
-                        </tr>
-                        <tr class="list-group-item">
-                            <th scope="row">Fecha de salida: </th>
-                            <td class="">
-              					${aventon.fecha.getDate()}/${aventon.fecha.getMonth()}/${aventon.fecha.getYear()+1900}
-                            </td>
-                        </tr>
-                        <tr class="list-group-item">
-                            <th scope="row">Hora de salida:</th>
-                            <td>
-                                ${aventon.hora}
-                            </td>
+                            <g:if test="${aventon.solicitudes.size()==0}">
+                                <th scope="row">No hay pasajeros</th>
+                            </g:if>
+                            <g:else>
+                                <g:each in="${aventon.solicitudes}">
+                                    <g:if test="${it.estado=='Aceptado'}">
+                                        <th scope="row">
+                                            <g:link class="text-left" action="ver" controller="usuarios" id="${it.pasajero.usuario.id}" class="">${it.pasajero.username}</g:link>
+                                        </th>
+                                        <td class="">
+                                            ${it.parada.calle}-${it.parada.colonia}
+                                        </td>
+                                    </g:if>
+                                </g:each>
+                            </g:else>
+                            
                         </tr>
                     </tbody>
                 </table>
-                <br>
-			    <h5 class="card-title text-center">Información de las paradas</h5>
-                <table class="table-sm table-hover list-group list-group-flush">
-                    <tbody>
-                    	<tr class="list-group-item">
-                            <th scope="row">Chofer: </th>
-                            <td class="">
-              					<g:link class="text-left" action="ver" controller="usuarios" id="${aventon.chofer.usuario.id}" class="">${aventon.chofer.usuario.username}</g:link>
-                            </td>
-                        </tr>
-                        <tr class="list-group-item">
-                            <th scope="row">Fecha de salida: </th>
-                            <td class="">
-              					${aventon.fecha.getDate()}/${aventon.fecha.getMonth()}/${aventon.fecha.getYear()+1900}
-                            </td>
-                        </tr>
-                        <tr class="list-group-item">
-                            <th scope="row">Hora de salida:</th>
-                            <td>
-                                ${aventon.hora}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                
 
 			  </div>
 

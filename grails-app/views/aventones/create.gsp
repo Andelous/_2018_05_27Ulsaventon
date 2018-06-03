@@ -8,6 +8,15 @@
 
 <body>
 	<br>
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item" aria-current="page">
+        	<g:link class="text-left" action="index" controller="aventones"class="">Aventones</g:link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Crear</li>
+      </ol>
+    </nav>
 	<h2 class="text-center">Crear Aventón</h2>
 	<hr>
 	<div class="container">
