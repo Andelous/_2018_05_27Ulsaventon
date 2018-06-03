@@ -19,32 +19,37 @@
          <h2 class="text-center">Lista de aventones dados</h2>
          <hr>
 		<div class="row">
-            <g:link class="text-left" action="create" controller="aventones" class="btn btn-primary col-md-5 col-sm-5">Crear aventón</g:link>
+            <g:link class="text-left" action="create" controller="aventones" class="btn btn-primary col-md-5 col-sm-12">Crear aventón</g:link>
                 
                 <div class="clearfix col-md-2"></div>
-                <button type="button" class="btn btn-success col-md-5 col-sm-5">Aceptar solicitudes de aventones
+                <button type="button" class="btn btn-success col-md-5 col-sm-12">Aceptar solicitudes de aventones
                 </button>
     			<div class="col">
 
 
                 <hr>
 
-				<table class="table" id="aventonesDados">
+				<table class="table" id="aventonesDados" >
 				  <thead class="thead-dark">
-				    <tr>
+				    <tr class="text-center">
 				      <th scope="col">Id</th>
 				      <th scope="col">estado</th>
 				      <th scope="col">Fecha</th>
 				      <th scope="col">Hora</th>
+                      <th scope="col">Detalle</th>
 				    </tr>
 				  </thead>
-				  <tbody>
+				  <tbody class="text-center">
                     <g:each in="${aventonesDados}">
     				    <tr>
-    				      <th scope="row">${it.id}</th>
+    				      <th scope="row" >${it.id}</th>
     				      <td>${it.estado}</td>
-    				      <td>${it.fecha}</td>
-    				      <td>${it.hora}</td>
+    				      <td>${it.fecha.getDate()}/${it.fecha.getMonth()}/${it.fecha.getYear()+1900}</td>
+                          <td>${it.hora}</td>
+                          <td class="w-25">
+                              <g:link class="text-left" action="ver" controller="aventones" id="${it.id}" class="btn btn-secondary container-fluid">Ver detalle</g:link>
+                          </td>
+                           
     				    </tr>
 			        </g:each>
 				  </tbody>
@@ -56,7 +61,7 @@
                 <button type="button" class="btn btn-primary container-fluid">Solicitar un aventón</button>
                 <table class="table" id="aventonesPedidos">
                   <thead class="thead-dark">
-                    <tr>
+                    <tr class="text-center">
                       <th scope="col">Id</th>
                       <th scope="col">estado</th>
                       <th scope="col">Fecha</th>
@@ -65,7 +70,7 @@
                   </thead>
                   <tbody>
                     <g:each in="${aventonesPedidos}">
-                        <tr>
+                        <tr class="text-center">
                           <th scope="row">${it.id}</th>
                           <td>${it.estado}</td>
                           <td>${it.fecha}</td>

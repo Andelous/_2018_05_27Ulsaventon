@@ -40,8 +40,8 @@ class AventonesController {
 
     }
 
-    def ver(Aventon a) {
-
+    def ver(Aventon aventon) {
+        return [aventon:aventon]
     }
 
     def solicitar(Aventon a) {
