@@ -59,10 +59,17 @@
         <g:render template="/layouts/footer" />
 
         <asset:javascript src="application.js"/>
+
         <script type="text/javascript">
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
-            })
+            });
+
+            $(document).ready(function() {
+                $('#aventonesDados').DataTable();
+                $('#aventonesPedidos').DataTable();
+                $('#aventonesBuscados').DataTable({searching:false});
+            } );
         </script>
     </body>
 </html>

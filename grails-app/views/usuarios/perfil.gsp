@@ -8,7 +8,7 @@
     <body>
 
         <div class="row mt-3">
-            <div class="col-md-4 mx-auto">
+            <div class="col-md-4 mx-auto mb-3">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0">Informaci&oacute;n personal</h5>
@@ -87,7 +87,7 @@
             </div>
 
             <g:if test="${usuario.authorities[0].authority == 'ROLE_BENEFICIARIO'}">
-                <div class="col-md">
+                <div class="col-md mb-3">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0">Perfil seg&uacute;n su actividad</h5>

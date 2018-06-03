@@ -3,100 +3,62 @@
     <head>
         <meta charset="utf-8">
         <meta name="layout" content="main">
-        <title>Aventon</title>
+        <title>Aventones</title>
     </head>
-
 <body>
-	<br>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Aventones</li>
-      </ol>
-    </nav>
-	<g:if test="${flash.message}">
-        <div class="alert alert-${flash.messageType} alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-${flash.icon}"></i>${flash.title}</h4>
-            ${flash.message}
+    <br />
+    <h1 class="text-center">¿Qu&eacute; deseas hacer?</h1>
+    <hr />
+
+    <g:if test="${params.errorCrear}">
+        <div class="alert alert-warning">
+            <strong>¡Ups!</strong>
+            recuerda que primero debes configurar tu vehículo y tu ruta
+            <i>(pst... haz clic en tu nombre para configurarlos)</i>.
         </div>
     </g:if>
-	<div class="container" >
-         <h2 class="text-center">Lista de aventones dados</h2>
-         <hr>
-		<div class="row">
-            <g:link class="text-left" action="create" controller="aventones" class="btn btn-primary col-md-5 col-sm-12">Crear aventón</g:link>
-                
-                <div class="clearfix col-md-2"></div>
-                <button type="button" class="btn btn-success col-md-5 col-sm-12">Aceptar solicitudes de aventones
-                </button>
-    			<div class="col">
 
+    <g:if test="${params.errorAcceso}">
+        <div class="alert alert-danger">
+            <strong>Lo sentimos</strong>,
+            no puedes acceder a contenido que no es tuyo.
+        </div>
+    </g:if>
 
-                <hr>
+    <div class="row">
 
-				<table class="table" id="aventonesDados" >
-				  <thead class="thead-dark">
-				    <tr class="text-center">
-				      <th scope="col">Id</th>
-				      <th scope="col">estado</th>
-				      <th scope="col">Fecha</th>
-				      <th scope="col">Hora</th>
-                      <th scope="col">Detalle</th>
-				    </tr>
-				  </thead>
-				  <tbody class="text-center">
-                    <g:each in="${aventonesDados}">
-    				    <tr>
-    				      <th scope="row" >${it.id}</th>
-    				      <td>${it.estado}</td>
-    				      <td>${it.fecha.getDate()}/${it.fecha.getMonth()}/${it.fecha.getYear()+1900}</td>
-                          <td>${it.hora}</td>
-                          <td class="w-25">
-                              <g:link class="text-left" action="ver" controller="aventones" id="${it.id}" class="btn btn-secondary container-fluid">Ver detalle</g:link>
-                          </td>
-                           
-    				    </tr>
-			        </g:each>
-				  </tbody>
-				</table>
-                <hr>
-                <br>
-                
-                <h2 class="text-center">Lista de aventones pedidos</h2>
-                <button type="button" class="btn btn-primary container-fluid">Solicitar un aventón</button>
-                <table class="table" id="aventonesPedidos">
-                  <thead class="thead-dark">
-                    <tr class="text-center">
-                      <th scope="col">Id</th>
-                      <th scope="col">estado</th>
-                      <th scope="col">Fecha</th>
-                      <th scope="col">Hora</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <g:each in="${aventonesPedidos}">
-                        <tr class="text-center">
-                          <th scope="row">${it.id}</th>
-                          <td>${it.estado}</td>
-                          <td>${it.fecha}</td>
-                          <td>${it.hora}</td>
-                        </tr>
-                    </g:each>
-                  </tbody>
-                </table>
-			</div>
-		</div>
+        <div class="col-md mb-3">
+            <g:link controller="aventones" action="buscar" class="btn btn-light btn-block">
+                <br />
+                <br />
+                <span class="oi oi-magnifying-glass text-warning" style="font-size:4em"></span>
+                <br />
+                <br />
+                <strong style="font-size:1em">Busco un avent&oacute;n</strong>
+            </g:link>
+        </div>
 
-	</div>
-    %{--Oye khe :´v--}%
-    <asset:javascript src="jquery.js"/>
-	<script type="text/javascript">
-       $(document).ready(function() {
-            $('#aventonesDados').DataTable();
-            $('#aventonesPedidos').DataTable();
-        } );
-        </script>
+        <div class="col-md mb-3">
+            <g:link controller="aventones" action="crear" class="btn btn-light btn-block">
+                <br />
+                <br />
+                <span class="oi oi-plus text-primary" style="font-size:4em"></span>
+                <br />
+                <br />
+                <strong style="font-size:1em">Quiero dar un aventón</strong>
+            </g:link>
+        </div>
 
+        <div class="col-md mb-3">
+            <g:link controller="aventones" action="misAventones" class="btn btn-light btn-block">
+                <br />
+                <br />
+                <span class="oi oi-location text-success" style="font-size:4em"></span>
+                <br />
+                <br />
+                <strong style="font-size:1em">Ver mis aventones</strong>
+            </g:link>
+        </div>
+    </div>
 </body>
 </html>

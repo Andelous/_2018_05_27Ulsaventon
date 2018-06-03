@@ -34,7 +34,8 @@
                 <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
 
                     <li class="nav-item rounded">
-                        <g:link class="nav-link text-white"><span class="oi oi-location" style="color:yellow;">
+                        <g:link class="nav-link text-white" controller="aventones">
+                            <span class="oi oi-location" style="color:yellow;">
                             </span> &nbsp;Aventones
                         </g:link>
                     </li>
@@ -60,7 +61,7 @@
                                 </g:link>
                                 <g:link class="dropdown-item" controller="ruta">
                                     Configurar ruta
-                                    <span class="oi oi-map float-right" style="color:darkblue"></span>
+                                    <span class="oi oi-map-marker float-right" style="color:darkblue"></span>
                                 </g:link>
                             </sec:ifAnyGranted>
                             <g:link class="dropdown-item" action="perfil" controller="usuarios">

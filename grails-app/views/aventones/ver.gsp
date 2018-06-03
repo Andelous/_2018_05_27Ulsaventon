@@ -17,29 +17,29 @@
       </ol>
     </nav>
 	<div class="container">
-		
+
 		<h2 class="text-center">Detalle del aventón #${aventon.id}</h2>
 		<hr>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 			<div class="card ">
-				<g:if test="${aventon.estado=='En espera'}">
+				<g:if test="${aventon.fecha.format('dd/MM/yyyy') > (new Date()).format('dd/MM/yyyy')}">
 					<div class="card-header bg-secondary text-white text-center">
 				    	Aventón en espera
 				  </div>
                 </g:if>
-                <g:if test="${aventon.estado=='En curso'}">
+                <g:if test="${aventon.fecha.format('dd/MM/yyyy') == (new Date()).format('dd/MM/yyyy')}">
 					<div class="card-header bg-primary text-white text-center">
 				    	Aventón en curso
 				  </div>
                 </g:if>
-                <g:if test="${aventon.estado=='Terminado'}">
+                <g:if test="${aventon.fecha.format('dd/MM/yyyy') < (new Date()).format('dd/MM/yyyy')}">
 					<div class="card-header bg-success text-white text-center">
 				    	Aventón terminado
 				  </div>
                 </g:if>
-			  
+
 			  <div class="card-body">
 			    <h5 class="card-title text-center">Información general del aventón</h5>
 				<table class="table-sm table-hover list-group list-group-flush">
@@ -47,13 +47,13 @@
                     	<tr class="list-group-item">
                             <th scope="row">Chofer: </th>
                             <td class="">
-              					<g:link class="text-left" action="ver" controller="usuarios" id="${aventon.chofer.usuario.id}" class="">${aventon.chofer.usuario.username}</g:link>
+              					<g:link class="text-left" action="perfil" controller="usuarios" id="${aventon.chofer.usuario.id}" class="">${aventon.chofer.usuario.persona}, ${aventon.chofer.usuario.username}</g:link>
                             </td>
                         </tr>
                         <tr class="list-group-item">
                             <th scope="row">Fecha de salida: </th>
                             <td class="">
-              					${aventon.fecha.getDate()}/${aventon.fecha.getMonth()}/${aventon.fecha.getYear()+1900}
+              					${aventon.fecha.format("dd/MM/yyyy")}
                             </td>
                         </tr>
                         <tr class="list-group-item">
@@ -100,15 +100,18 @@
                             <g:else>
                                 <g:each in="${aventon.chofer.ruta.paradas}">
                                     <tr class="list-group-item">
-                                        <th scope="row">${it.calle}</th>
-                                        <td class="">${it.colonia}</td>
+                                        <td><strong>${it.calle}</strong>,
+                                        Col. ${it.colonia}
+                                        <small>
+                                            (${it.descripcion})
+                                        </small></td>
                                     </tr>
                                 </g:each>
-                                
+
                             </g:else>
-                            
+
                         </g:else>
-                        
+
                     </tbody>
                 </table>
                 <br>
@@ -118,7 +121,7 @@
                         <tr class="list-group-item">
                             <th scope="row">Número de pasajeros disponibles: </th>
                             <td class="">
-                                ${aventon.limite - aventon.solicitudes.size()}
+                                ${aventon.limite - solicitudesAceptadas.size()}
                             </td>
                         </tr>
                     	<tr class="list-group-item">
@@ -137,11 +140,11 @@
                                     </g:if>
                                 </g:each>
                             </g:else>
-                            
+
                         </tr>
                     </tbody>
                 </table>
-                
+
 
 			  </div>
 
@@ -151,7 +154,7 @@
 			</div>
 			</div>
 			<div class="col-md-1"></div>
-			
+
 
 		</div>
 

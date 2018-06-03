@@ -14,11 +14,10 @@ class AventonesController {
     // Preguntar qué desea hacer...
     def index() {
 
-        return misAventones()
     }
 
     // Ver todos los aventones que he dado y he pedido
-    def misAventones() {    
+    def misAventones() {
         def u = springSecurityService.currentUser
 
         def aventonesDados = Aventon.where {
@@ -37,46 +36,171 @@ class AventonesController {
 
     // Para solicitar un aventón
     def buscar(String q) {
+        q = q ?: ''
+        def u = springSecurityService.loadCurrentUser()
+        def fechaHoy = new Date()
 
+        def aventonesPosibles = Aventon.where {
+            fecha > fechaHoy
+        }.list()
+
+        def aventones = []
+
+        for (aventon in aventonesPosibles) {
+            def ruta = aventon.chofer.ruta
+            def paradas = ruta.paradas
+
+            def solicitudesUsuario = []
+            def solicitudesAceptadas = []
+
+            for (solicitud in aventon.solicitudes) {
+                if (solicitud.estado == "Aceptada") {
+                    solicitudesAceptadas.add(solicitud)
+                }
+
+                if (solicitud.pasajero.usuario.id == u.id) {
+                    solicitudesUsuario.add(solicitud)
+                }
+            }
+
+            if (
+                aventon.chofer.usuario.id == u.id ||
+                solicitudesAceptadas.size() == aventon.limite ||
+                solicitudesUsuario.size() > 0
+            ) {
+                continue
+            }
+
+            if (
+                ruta.nombre.contains(q) ||
+                ruta.descripcion.contains(q)
+            ) {
+                aventones.add(aventon)
+                continue
+            }
+
+            for (parada in paradas) {
+                if (
+                    parada.calle.contains(q) ||
+                    parada.colonia.contains(q) ||
+                    parada.descripcion.contains(q)
+                ) {
+                    aventones.add(aventon)
+                    break
+                }
+            }
+        }
+
+        [
+            aventones: aventones
+        ]
     }
 
     def ver(Aventon aventon) {
-        return [aventon:aventon]
-    }
+        def solicitudesAceptadas = []
 
-    def solicitar(Aventon a) {
-
-    }
-
-    def save(Aventon aventon){
-
-        print(params.fecha)
-        if (aventon == null) {
-            notFound()
-            return
+        for (solicitud in aventon.solicitudes) {
+            if (solicitud.estado == "Aceptada") {
+                solicitudesAceptadas.add(solicitud)
+            }
         }
+
+        [
+            aventon: aventon,
+            solicitudesAceptadas: solicitudesAceptadas
+        ]
+    }
+
+    def solicitar(Aventon aventon, Parada parada, String q) {
         def u = springSecurityService.currentUser
-        aventon.chofer=u.chofer
-        aventon.estado="En espera"
 
-        try {
-            aventon.save(failOnError: true, flush:true)
-        } catch (ValidationException e) {
-            println e
-            respond aventon.errors, view:'create'
+        if (
+            !aventon ||
+            aventon.chofer.usuario.id == u.id
+        ) {
+            redirect(action: "index", params: [errorAcceso: 1])
             return
         }
 
-        flash.icon = "check"
-        flash.messageType = "success"
-        flash.title = "Aventón Registrado!"
-        flash.message = "El aventón ha sido registrado correctamente"
+        def solicitud = new Solicitud()
+        solicitud.pasajero = u.pasajero
+        solicitud.aventon = aventon
+        solicitud.parada = parada
 
-        redirect(action: "index", params:[aventon: aventon])
+        solicitud.estado = "En revisión"
+        solicitud.fechaRealizacion = new Date()
+
+        if (solicitud.save()) {
+            redirect action:"misAventones", params: [solicitudCorrecta: 1]
+            return
+        }
+
+        redirect action: "buscar", params: [q: q]
     }
 
     // Para crear un aventón
-    def create() {
-        respond new Aventon(params)
+    def crear() {
+        def u = springSecurityService.currentUser
+
+        if (!u.chofer.vehiculo || u.chofer.ruta?.paradas.size() == 0) {
+            redirect controller: "aventones", params: [errorCrear: 1]
+        }
+
+        def aventon = new Aventon()
+
+        if (request.method == "POST") {
+            aventon.properties = params
+            aventon.estado = "En espera"
+            aventon.chofer = u.chofer
+
+            def intento = aventon.save()
+
+            println intento
+
+            if (intento) {
+                flash.icon = "check"
+                flash.messageType = "success"
+                flash.title = "¡Aventón registrado!"
+                flash.message = "El aventón ha sido registrado correctamente."
+
+                redirect(action: "misAventones")
+                return
+            }
+        }
+
+        [
+            aventon: aventon
+        ]
+    }
+
+    // Para ver y aprobar una solicitud
+    def verSolicitudes(Aventon aventon) {
+        def u = springSecurityService.loadCurrentUser()
+
+        if (
+            !aventon ||
+            aventon.chofer.usuario.id != u.id
+        ) {
+            redirect(action: "index", params: [errorAcceso: 1])
+            return
+        }
+
+        [
+            aventon: aventon
+        ]
+    }
+
+    def cambiarEstadoSolicitud(Solicitud solicitud, String estado) {
+        def u = springSecurityService.loadCurrentUser()
+
+        if (
+            !solicitud ||
+            solicitud.aventon.chofer.usuario.id != u.id
+        ) {
+            redirect(action: "index", params: [errorAcceso: 1])
+            return
+        }
+
+        redirect action: "verSolicitudes", params: [estado: estado]
     }
 }

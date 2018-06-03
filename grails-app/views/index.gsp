@@ -15,14 +15,14 @@
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <a href="#" class="btn btn-light btn-block">
+                    <g:link controller="aventones" action="misAventones" class="btn btn-light btn-block">
                         <br />
                         <br />
                         <span class="oi oi-location text-success" style="font-size:4em"></span>
                         <br />
                         <br />
                         <strong style="font-size:1em">Mis aventones</strong>
-                    </a>
+                    </g:link>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -53,7 +53,7 @@
                     <g:link controller="ruta" class="btn btn-light btn-block">
                         <br />
                         <br />
-                        <span class="oi oi-map p-2 rounded ml-2"
+                        <span class="oi oi-map-marker p-2 rounded ml-2"
                             style="font-size:3.2em; color:rgb(230, 50, 0);">
                         </span>
                         <br />

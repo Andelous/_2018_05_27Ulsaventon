@@ -12,7 +12,9 @@ class Aventon {
 
     static constraints = {
         limite min: 1, max: 10
-        estado nullable:true
-        chofer nullable:true
+        hora min: "05:30", max: "21:30"
+        fecha min: new Date(), validator: { val, obj ->
+            return val[Calendar.DAY_OF_WEEK] != Calendar.SUNDAY
+        }
     }
 }

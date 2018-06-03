@@ -7,11 +7,11 @@ class Solicitud {
     String estado
     Date fechaRealizacion
 
-    Double puntuacionParaChofer
-    Double puntuacionParaPasajero
+    Integer puntuacionParaChofer
+    Integer puntuacionParaPasajero
 
     static constraints = {
-        puntuacionParaChofer min: 0, max: 10
-        puntuacionParaPasajero min: 0, max: 10
+        puntuacionParaChofer nullable:true, min: 1, max: 5
+        puntuacionParaPasajero nullable: true, min: 1, max: 5
     }
 }

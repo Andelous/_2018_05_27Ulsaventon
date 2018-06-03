@@ -9,7 +9,10 @@
         <div class="row mt-3">
             <div class="col-md-9 mx-auto">
 
-                <h3 class="text-center"><span class="oi oi-map"></span> Configurar mi ruta</h3>
+                <h3 class="text-center"><span class="oi oi-map-marker"></span> Configurar mi ruta</h3>
+                <div class="text-center">
+                    <small class="text-muted">Sólo agrega las características de tu ruta si vas a dar aventones</small>
+                </div>
                 <hr />
 
                 <div class="row">
