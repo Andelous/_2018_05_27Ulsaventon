@@ -5,10 +5,12 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'mx.edu.ulsaoaxaca
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'mx.edu.ulsaoaxaca.aventon.UsuarioRol'
 grails.plugin.springsecurity.authority.className = 'mx.edu.ulsaoaxaca.aventon.Rol'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	[pattern: '/',               access: ['IS_AUTHENTICATED_FULLY']],
+	[pattern: '/',               access: ['permitAll']],
+    [pattern: '/politicas',               access: ['permitAll']],
+    [pattern: '/acerca',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
-	[pattern: '/index',          access: ['IS_AUTHENTICATED_FULLY']],
-	[pattern: '/index.gsp',      access: ['IS_AUTHENTICATED_FULLY']],
+	[pattern: '/index',          access: ['permitAll']],
+	[pattern: '/index.gsp',      access: ['permitAll']],
 	[pattern: '/shutdown',       access: ['permitAll']],
 	[pattern: '/assets/**',      access: ['permitAll']],
 	[pattern: '/**/js/**',       access: ['permitAll']],

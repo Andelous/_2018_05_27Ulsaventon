@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<%@ page import="java.text.DecimalFormat" %>
+<g:set var="df" value="${new DecimalFormat("#.0")}" />
+<g:set var="fechaHoy" value="${(new Date()).format('dd/MM/yyyy')}" />
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -70,8 +75,9 @@
             <table class="table" id="aventonesDados">
                 <thead class="thead-dark">
                     <tr class="text-center">
-                        <th scope="col">Máx. pasajeros</th>
+                        <th scope="col">M&aacute;x. pasajeros</th>
                         <th scope="col">Fecha y hora de salida</th>
+                        <th>Te calificaron</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -81,6 +87,16 @@
                         <tr>
                             <td>${it.limite}</td>
                             <td>${it.fecha.format('dd/MM/yyyy') + ' a las ' + it.hora}</td>
+                            <td>
+                                <g:set var="califAventon" value="${it.obtenerPuntuacionAventon()}" />
+                                <g:if test="${califAventon}">
+                                    <span class="oi oi-star rounded bg-secondary p-1" style="color:yellow"></span>
+                                    ${df.format(califAventon)}<small class="text-muted">/5</small>
+                                </g:if>
+                                <g:else>
+                                    <span class="oi oi-star rounded bg-secondary p-1"></span> Sin definir
+                                </g:else>
+                            </td>
                             <td>
                                 <g:link action="ver" controller="aventones" id="${it.id}" class="btn btn-outline-secondary btn-sm">
                                     Ver detalle
@@ -131,8 +147,43 @@
                             </td>
                             <td>
                                 <g:link action="ver" controller="aventones" id="${it.aventon.id}" class="btn btn-outline-secondary btn-sm">
-                                    Ver aventón
+                                    Ver avent&oacute;n
                                 </g:link>
+                                <g:if test="${it.aventon.fecha.format('dd/MM/yyyy') < fechaHoy}">
+                                    <g:set var="pp" value="${it.puntuacionParaChofer}" />
+                                    <div class="btn-group">
+                                        <span id="star1${it.id}"
+                                            class="oi oi-star rounded bg-secondary p-1"
+                                            ${ pp && pp >= 1 ? 'style=color:yellow activaOriginal=1' : ''}
+                                            onmouseover="iluminarEstrellas(1, ${it.id})"
+                                            onmouseout="reestablecerEstrellas(${it.id})"
+                                            onclick="evaluarSolicitud(1, ${it.id})"></span>
+                                        <span id="star2${it.id}"
+                                            class="oi oi-star rounded bg-secondary p-1"
+                                            ${ pp && pp >= 2 ? 'style=color:yellow activaOriginal=1' : ''}
+                                            onmouseover="iluminarEstrellas(2, ${it.id})"
+                                            onmouseout="reestablecerEstrellas(${it.id})"
+                                            onclick="evaluarSolicitud(2, ${it.id})"></span>
+                                        <span id="star3${it.id}"
+                                            class="oi oi-star rounded bg-secondary p-1"
+                                            ${ pp && pp >= 3 ? 'style=color:yellow activaOriginal=1' : ''}
+                                            onmouseover="iluminarEstrellas(3, ${it.id})"
+                                            onmouseout="reestablecerEstrellas(${it.id})"
+                                            onclick="evaluarSolicitud(3, ${it.id})"></span>
+                                        <span id="star4${it.id}"
+                                            class="oi oi-star rounded bg-secondary p-1"
+                                            ${ pp && pp >= 4 ? 'style=color:yellow activaOriginal=1' : ''}
+                                            onmouseover="iluminarEstrellas(4, ${it.id})"
+                                            onmouseout="reestablecerEstrellas(${it.id})"
+                                            onclick="evaluarSolicitud(4, ${it.id})"></span>
+                                        <span id="star5${it.id}"
+                                            class="oi oi-star rounded bg-secondary p-1"
+                                            ${ pp && pp >= 5 ? 'style=color:yellow activaOriginal=1' : ''}
+                                            onmouseover="iluminarEstrellas(5, ${it.id})"
+                                            onmouseout="reestablecerEstrellas(${it.id})"
+                                            onclick="evaluarSolicitud(5, ${it.id})"></span>
+                                    </div>
+                                </g:if>
                             </td>
                         </tr>
                     </g:each>
@@ -142,6 +193,61 @@
 
         <script type="text/javascript">
             var botonActivo = document.getElementById("btnDados");
+
+
+            function iluminarEstrellas(cantidad, grupo) {
+                var arr = [
+                    document.getElementById("star1" + grupo),
+                    document.getElementById("star2" + grupo),
+                    document.getElementById("star3" + grupo),
+                    document.getElementById("star4" + grupo),
+                    document.getElementById("star5" + grupo)
+                ];
+
+                for (var i = 0; i < arr.length; i++) {
+                    arr[i].style.color = i < cantidad ? "yellow" : "black";
+                }
+            }
+
+            function reestablecerEstrellas(grupo) {
+                var arr = [
+                    document.getElementById("star1" + grupo),
+                    document.getElementById("star2" + grupo),
+                    document.getElementById("star3" + grupo),
+                    document.getElementById("star4" + grupo),
+                    document.getElementById("star5" + grupo)
+                ];
+
+                arr.forEach(function(obj){
+                    var attr = obj.getAttribute("activaOriginal");
+                    obj.style.color = attr == null || attr == "" ? "black" : "yellow";
+                });
+            }
+
+            function evaluarSolicitud(calificacion, solicitud) {
+                $.post(
+                    '${createLink(action:'calificarSolicitud', controller: 'aventones')}',
+                    {
+                        'solicitud.id': solicitud,
+                        'valor': calificacion
+                    }, function (data, status) {
+                        console.log("Calificar solicitud");
+                        console.log(data);
+                        console.log(status);
+                        console.log();
+                        console.log();
+
+                        switch (status) {
+                            case 'success':
+                                console.log("miau");
+                                location.reload();
+                                break;
+                            default:
+                                console.log("Algo salió mal");
+                        }
+                    }
+                );
+            }
         </script>
     </body>
 </html>

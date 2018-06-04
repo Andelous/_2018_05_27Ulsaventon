@@ -6,11 +6,34 @@
     <head>
         <meta name="layout" content="main">
         <meta charset="utf-8">
-        <title>Solicitudes de tu aventón</title>
+        <title>Solicitudes de tu avent&oacute;n</title>
     </head>
     <body>
         <br />
-        <h3>Aprueba las solicitudes de tu aventón</h3>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <g:link controller="aventones">
+                        Aventones
+                    </g:link>
+                </li>
+                <li class="breadcrumb-item">
+                    <g:link controller="aventones" action="misAventones">
+                        Mis aventones
+                    </g:link>
+                </li>
+                <li class="breadcrumb-item active">
+                    Ver solicitudes
+                </li>
+            </ol>
+        </nav>
+
+        <br />
+        <h3>Aprueba las solicitudes de tu avent&oacute;n</h3>
         <hr />
 
         <div class="row">
@@ -95,7 +118,7 @@
                                             </div>
                                         </g:if>
                                         <g:else>
-                                            <strong>Mañana podrás calificar al pasajero</strong>
+                                            <strong>Mañana podr&aacute;s calificar al pasajero</strong>
                                         </g:else>
                                     </g:if>
                                     <g:else>

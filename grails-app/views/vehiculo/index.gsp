@@ -11,7 +11,7 @@
 
                 <h3 class="text-center"><span class="oi oi-key"></span> Mi veh&iacute;culo</h3>
                 <div class="text-center">
-                    <small class="text-muted">Sólo agrega las características de tu vehículo si vas a dar aventones</small>
+                    <small class="text-muted">S&oacute;lo agrega las caracter&iacute;sticas de tu veh&iacute;culo si vas a dar aventones</small>
                 </div>
                 <hr />
 

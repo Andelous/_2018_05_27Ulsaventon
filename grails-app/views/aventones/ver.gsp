@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="layout" content="main">
-        <title>Aventon</title>
+        <title>Avent&oacute;n</title>
     </head>
 <body>
     <br>
@@ -21,7 +21,7 @@
     </nav>
 	<div class="container">
 
-		<h2 class="text-center">Detalle del aventón #${aventon.id}</h2>
+		<h2 class="text-center">Detalle del avent&oacute;n #${aventon.id}</h2>
 		<hr>
 		<div class="row">
 			<div class="col-md-1"></div>
@@ -29,22 +29,22 @@
 			<div class="card ">
 				<g:if test="${aventon.fecha.format('dd/MM/yyyy') > fechaHoy}">
 					<div class="card-header bg-secondary text-white text-center">
-				    	Aventón en espera
+				    	Avent&oacute;n en espera
 				  </div>
                 </g:if>
                 <g:if test="${aventon.fecha.format('dd/MM/yyyy') == fechaHoy}">
 					<div class="card-header bg-primary text-white text-center">
-				    	Aventón en curso
+				    	Avent&oacute;n en curso
 				  </div>
                 </g:if>
                 <g:if test="${aventon.fecha.format('dd/MM/yyyy') < fechaHoy}">
 					<div class="card-header bg-success text-white text-center">
-				    	Aventón terminado
+				    	Avent&oacute;n terminado
 				  </div>
                 </g:if>
 
 			  <div class="card-body">
-			    <h5 class="card-title text-center">Información general del aventón</h5>
+			    <h5 class="card-title text-center">Informaci&oacute;n general del avent&oacute;n</h5>
 				<table class="table-sm table-hover list-group list-group-flush">
                     <tbody>
                     	<tr class="list-group-item">
@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
                 <br>
-                <h5 class="card-title text-center">Información de la ruta</h5>
+                <h5 class="card-title text-center">Informaci&oacute;n de la ruta</h5>
                 <table class="table-sm table-hover list-group list-group-flush">
                     <tbody>
                         <tr class="list-group-item">
@@ -78,7 +78,7 @@
                             </td>
                         </tr>
                         <tr class="list-group-item">
-                            <th scope="row">Descripción</th>
+                            <th scope="row">Descripci&oacute;n</th>
                             <td class="">
                                  ${aventon.chofer.ruta!=null?aventon.chofer.ruta.nombre:"No hay descripción de la ruta"}
                             </td>
@@ -118,11 +118,11 @@
                     </tbody>
                 </table>
                 <br>
-                <h5 class="card-title text-center">Información de los pasajeros</h5>
+                <h5 class="card-title text-center">Informaci&oacute;n de los pasajeros</h5>
                 <table class="table-sm table-hover list-group list-group-flush">
                     <tbody>
                         <tr class="list-group-item">
-                            <th scope="row">Número de pasajeros disponibles: </th>
+                            <th scope="row">N&uacute;mero de pasajeros disponibles: </th>
                             <td class="">
                                 ${aventon.limite - solicitudesAceptadas.size()}
                             </td>

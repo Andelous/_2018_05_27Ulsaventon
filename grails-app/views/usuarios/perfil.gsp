@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+
+<%@ page import="java.text.DecimalFormat" %>
+<g:set var="df" value="${new DecimalFormat("#.0")}" />
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="layout" content="main">
-        <title>Mi perfil</title>
+        <title>Ver perfil</title>
     </head>
     <body>
 
@@ -98,12 +102,34 @@
                                     <h5 class="text-center">Como chofer</h5>
                                     <hr />
 
-
+                                    <h1 class="text-center">
+                                        <g:set var="califChofer" value="${usuario.chofer.obtenerPuntuacion()}" />
+                                        <g:if test="${califChofer}">
+                                            <span class="oi oi-star rounded bg-secondary p-1" style="color:yellow"></span>
+                                            ${df.format(califChofer)}<small class="text-muted">/5</small>
+                                        </g:if>
+                                        <g:else>
+                                            <span class="oi oi-star rounded bg-secondary p-1"></span> Sin definir
+                                        </g:else>
+                                    </h1>
+                                    <br />
                                 </div>
 
                                 <div class="col-md">
                                     <h5 class="text-center">Como pasajero</h5>
                                     <hr />
+
+                                    <h1 class="text-center">
+                                        <g:set var="califPasajero" value="${usuario.pasajero.obtenerPuntuacion()}" />
+                                        <g:if test="${califPasajero}">
+                                            <span class="oi oi-star rounded bg-secondary p-1" style="color:yellow"></span>
+                                            ${df.format(califPasajero)}<small class="text-muted">/5</small>
+                                        </g:if>
+                                        <g:else>
+                                            <span class="oi oi-star rounded bg-secondary p-1"></span> Sin definir
+                                        </g:else>
+                                    </h1>
+                                    <br />
                                 </div>
                             </div>
                         </div>

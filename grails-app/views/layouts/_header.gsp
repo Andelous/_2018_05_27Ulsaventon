@@ -47,32 +47,39 @@
 
 
             <form class="form-inline my-2 my-md-0">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido, <strong>${usuarioLog.persona.nombres}</strong></button>
-                        <div class="dropdown-menu w-100">
-                            <a class="dropdown-item text-center disabled" href="#"><strong>${rolLog}</strong></a>
-                            <a class="dropdown-item text-center disabled bg-dark text-light" href="#">${usuarioLog.username}</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
-                                <g:link class="dropdown-item" controller="vehiculo">
-                                    Mi veh&iacute;culo
-                                    <span class="oi oi-key float-right" style="color:darkblue"></span>
+                <sec:ifLoggedIn>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido, <strong>${usuarioLog.persona.nombres}</strong></button>
+                            <div class="dropdown-menu w-100">
+                                <a class="dropdown-item text-center disabled" href="#"><strong>${rolLog}</strong></a>
+                                <a class="dropdown-item text-center disabled bg-dark text-light" href="#">${usuarioLog.username}</a>
+                                <div role="separator" class="dropdown-divider"></div>
+                                <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
+                                    <g:link class="dropdown-item" controller="vehiculo">
+                                        Mi veh&iacute;culo
+                                        <span class="oi oi-key float-right" style="color:darkblue"></span>
+                                    </g:link>
+                                    <g:link class="dropdown-item" controller="ruta">
+                                        Configurar ruta
+                                        <span class="oi oi-map-marker float-right" style="color:darkblue"></span>
+                                    </g:link>
+                                </sec:ifAnyGranted>
+                                <g:link class="dropdown-item" action="perfil" controller="usuarios">
+                                    Mi perfil
+                                    <span class="oi oi-person float-right" style="color:darkblue"></span>
                                 </g:link>
-                                <g:link class="dropdown-item" controller="ruta">
-                                    Configurar ruta
-                                    <span class="oi oi-map-marker float-right" style="color:darkblue"></span>
-                                </g:link>
-                            </sec:ifAnyGranted>
-                            <g:link class="dropdown-item" action="perfil" controller="usuarios">
-                                Mi perfil
-                                <span class="oi oi-person float-right" style="color:darkblue"></span>
-                            </g:link>
+                            </div>
                         </div>
-                    </div>
 
-                    <a href="/logoff" class="btn btn-sm btn-danger">Cerrar sesi&oacute;n</a>
-                </div>
+                        <a href="/logoff" class="btn btn-sm btn-danger">Cerrar sesi&oacute;n <span class="oi oi-account-logout"></span></a>
+                    </div>
+                </sec:ifLoggedIn>
+                <sec:ifNotLoggedIn>
+                    <g:link class="btn btn-primary btn-sm" action="auth" controller="login">
+                        Iniciar sesi&oacute;n <span class="oi oi-account-login"></span>
+                    </g:link>
+                </sec:ifNotLoggedIn>
             </form>
         </div>
     </div>

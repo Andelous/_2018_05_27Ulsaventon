@@ -13,7 +13,7 @@
     <g:if test="${params.errorCrear}">
         <div class="alert alert-warning">
             <strong>¡Ups!</strong>
-            recuerda que primero debes configurar tu vehículo y tu ruta
+            recuerda que primero debes configurar tu veh&iacute;culo y tu ruta
             <i>(pst... haz clic en tu nombre para configurarlos)</i>.
         </div>
     </g:if>
@@ -45,7 +45,7 @@
                 <span class="oi oi-plus text-primary" style="font-size:4em"></span>
                 <br />
                 <br />
-                <strong style="font-size:1em">Quiero dar un aventón</strong>
+                <strong style="font-size:1em">Quiero dar un avent&oacute;n</strong>
             </g:link>
         </div>
 

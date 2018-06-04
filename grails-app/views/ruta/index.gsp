@@ -11,7 +11,7 @@
 
                 <h3 class="text-center"><span class="oi oi-map-marker"></span> Configurar mi ruta</h3>
                 <div class="text-center">
-                    <small class="text-muted">Sólo agrega las características de tu ruta si vas a dar aventones</small>
+                    <small class="text-muted">S&oacute;lo agrega las caracter&iacute;sticas de tu ruta si vas a dar aventones</small>
                 </div>
                 <hr />
 

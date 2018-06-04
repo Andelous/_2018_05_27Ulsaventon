@@ -10,6 +10,8 @@ class UrlMappings {
         }
 
         "/"(view:"/index")
+        "/acerca"(view:"/acerca")
+        "/politicas"(view:"/politicas")
         "500"(view:'/error')
         "404"(view:'/notFound')
     }

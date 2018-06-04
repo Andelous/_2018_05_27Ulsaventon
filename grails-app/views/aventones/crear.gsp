@@ -23,15 +23,15 @@
                     </ol>
                 </nav>
 
-                <h2 class="text-center">Crear Aventón</h2>
+                <h2 class="text-center">Crear Avent&oacute;n</h2>
                 <hr />
 
                 <g:if test="${request.method != 'GET' && aventon}">
                     <div class="alert alert-danger">
-                        <h6 class="alert-header"><strong>Error al crear aventón</strong></h6>
+                        <h6 class="alert-header"><strong>Error al crear avent&oacute;n</strong></h6>
                         <ul>
-                            <li>Debes crear el aventón con al menos un día de anticipación, y debe ser de lunes a sábado.</li>
-                            <li>Los pasajeros no pueden ser más de diez.</li>
+                            <li>Debes crear el avent&oacute;n con al menos un d&iacute;a de anticipaci&oacute;n, y debe ser de lunes a s&aacute;bado.</li>
+                            <li>Los pasajeros no pueden ser m&aacute;s de diez.</li>
                             <li>La hora debe ser entre 05:30 y 21:30 horas.</li>
                         </ul>
                     </div>

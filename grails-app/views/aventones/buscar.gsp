@@ -3,7 +3,7 @@
     <head>
         <meta name="layout" content="main">
         <meta charset="utf-8">
-        <title>Buscar un aventón</title>
+        <title>Buscar un avent&oacute;n</title>
     </head>
     <body>
 
@@ -21,7 +21,7 @@
 
         <div class="row">
             <div class="col-md">
-                <h4>Busca un aventón por donde quieres subir</h4>
+                <h4>Busca un avent&oacute;n por donde quieres subir</h4>
             </div>
 
             <div class="col-md">
@@ -42,7 +42,7 @@
             <thead class="thead-dark">
                 <tr class="text-center">
                     <th scope="col">Chofer</th>
-                    <th scope="col">Máx. pasajeros</th>
+                    <th scope="col">M&aacute;x. pasajeros</th>
                     <th scope="col">Fecha y hora de salida</th>
                     <th scope="col">Acciones</th>
                 </tr>
