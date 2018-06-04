@@ -36,7 +36,7 @@ class AventonesController {
 
     // Para solicitar un aventón
     def buscar(String q) {
-        q = q.toLowerCase() ?: ''
+        q = (q ?: '').toLowerCase()
         def u = springSecurityService.loadCurrentUser()
         def fechaHoy = new Date()
 
@@ -189,8 +189,13 @@ class AventonesController {
             return
         }
 
+        def solicitudes = aventon.solicitudes.sort { a, b ->
+            a.estado <=> b.estado
+        }
+
         [
-            aventon: aventon
+            aventon: aventon,
+            solicitudes: solicitudes
         ]
     }
 
@@ -221,5 +226,30 @@ class AventonesController {
         println ""
 
         redirect action: "verSolicitudes", params: [estado: estado, intento: intento, 'aventon.id': solicitud.aventon.id]
+    }
+
+    def calificarSolicitud(Solicitud solicitud, Integer valor) {
+        def u = springSecurityService.loadCurrentUser()
+
+        if (solicitud.pasajero.usuario.id == u.id) {
+            solicitud.puntuacionParaChofer = valor
+        } else if (solicitud.aventon.chofer.usuario.id == u.id) {
+            solicitud.puntuacionParaPasajero = valor
+        } else {
+            response.status = 204
+        }
+
+        if (response.status != 204 && solicitud.save()) {
+            println "Guardado!"
+            println ""
+            println ""
+            response.status = 200
+        } else {
+            response.status = 204
+        }
+
+        def mapa = [solicitud: solicitud, valor: valor]
+
+        render mapa as JSON
     }
 }

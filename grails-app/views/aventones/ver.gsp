@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<g:set var="fechaHoy" value="${(new Date()).format('dd/MM/yyyy')}" />
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -24,17 +27,17 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 			<div class="card ">
-				<g:if test="${aventon.fecha.format('dd/MM/yyyy') > (new Date()).format('dd/MM/yyyy')}">
+				<g:if test="${aventon.fecha.format('dd/MM/yyyy') > fechaHoy}">
 					<div class="card-header bg-secondary text-white text-center">
 				    	Aventón en espera
 				  </div>
                 </g:if>
-                <g:if test="${aventon.fecha.format('dd/MM/yyyy') == (new Date()).format('dd/MM/yyyy')}">
+                <g:if test="${aventon.fecha.format('dd/MM/yyyy') == fechaHoy}">
 					<div class="card-header bg-primary text-white text-center">
 				    	Aventón en curso
 				  </div>
                 </g:if>
-                <g:if test="${aventon.fecha.format('dd/MM/yyyy') < (new Date()).format('dd/MM/yyyy')}">
+                <g:if test="${aventon.fecha.format('dd/MM/yyyy') < fechaHoy}">
 					<div class="card-header bg-success text-white text-center">
 				    	Aventón terminado
 				  </div>
@@ -130,17 +133,17 @@
                             </tr>
                         </g:if>
                         <g:each in="${aventon.solicitudes}">
-                        	<tr class="list-group-item">
-                                <g:if test="${it.estado=='Aceptada'}">
-                                    <td scope="row">
-                                        <g:link class="text-left" action="perfil" controller="usuarios" id="${it.pasajero.usuario.id}" class="">
-                                            ${it.pasajero.usuario.persona},
-                                            ${it.pasajero.usuario.username}
-                                        </g:link>
-                                        sube en <strong>${it.parada.calle}</strong>, ${it.parada.colonia} (<small>${it.parada.descripcion}</small>)
-                                    </td>
-                                </g:if>
-                            </tr>
+                            <g:if test="${it.estado=='Aceptada'}">
+                            	<tr class="list-group-item">
+                                        <td scope="row">
+                                            <g:link class="text-left" action="perfil" controller="usuarios" id="${it.pasajero.usuario.id}" class="">
+                                                ${it.pasajero.usuario.persona},
+                                                ${it.pasajero.usuario.username}
+                                            </g:link>
+                                            sube en <strong>${it.parada.calle}</strong>, ${it.parada.colonia} (<small>${it.parada.descripcion}</small>)
+                                        </td>
+                                </tr>
+                            </g:if>
                         </g:each>
                     </tbody>
                 </table>

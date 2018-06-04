@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<g:set var="fechaManana" value="${new Date() + 1}" />
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -45,10 +48,10 @@
                         <input type="date"
                             id="fechaInput"
                             value="${
-                                (aventon?.fecha ?: (new Date() + 1)).
+                                (aventon?.fecha ?: fechaManana).
                                 format('yyyy-MM-dd')
                             }"
-                            min="${(new Date() + 1).format('yyyy-MM-dd')}"
+                            min="${fechaManana.format('yyyy-MM-dd')}"
                             class="form-control form-control-sm"
                             required />
                     </div>

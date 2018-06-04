@@ -103,7 +103,7 @@
                         <th scope="col">Parada</th>
                         <th>Fecha y hora</th>
                         <th>Chofer</th>
-                        <th scope="col">Tu calificación</th>
+                        <th scope="col">Te calificaron</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -120,7 +120,15 @@
                             <td><strong>${it.parada.calle}</strong></td>
                             <td>${it.aventon.fecha.format('dd/MM/yyyy') + ' a las ' + it.aventon.hora}</td>
                             <td><g:link class="text-left" action="perfil" controller="usuarios" id="${it.aventon.chofer.usuario.id}" class="">${it.aventon.chofer.usuario.persona.nombres}</g:link></td>
-                            <td>${it.puntuacionParaPasajero ?: 'Sin definir'}</td>
+                            <td>
+                                <g:if test="${it.puntuacionParaPasajero}">
+                                    <span class="oi oi-star rounded bg-secondary p-1" style="color:yellow"></span>
+                                    ${it.puntuacionParaPasajero}<small class="text-muted">/5</small>
+                                </g:if>
+                                <g:else>
+                                    <span class="oi oi-star rounded bg-secondary p-1"></span> Sin definir
+                                </g:else>
+                            </td>
                             <td>
                                 <g:link action="ver" controller="aventones" id="${it.aventon.id}" class="btn btn-outline-secondary btn-sm">
                                     Ver aventón
