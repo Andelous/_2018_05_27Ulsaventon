@@ -33,6 +33,7 @@
                             <li>Debes crear el avent&oacute;n con al menos un d&iacute;a de anticipaci&oacute;n, y debe ser de lunes a s&aacute;bado.</li>
                             <li>Los pasajeros no pueden ser m&aacute;s de diez.</li>
                             <li>La hora debe ser entre 05:30 y 21:30 horas.</li>
+                            <li>S&oacute;lo puedes dar dos aventones por d&iacute;a</li>
                         </ul>
                     </div>
                 </g:if>

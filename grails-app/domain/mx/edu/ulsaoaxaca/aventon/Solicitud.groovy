@@ -42,5 +42,18 @@ class Solicitud {
 
             return true
         }
+        fechaRealizacion validator: { val, obj ->
+            def ide = obj.id ?: 0
+            def solicitudesCoincidentes = Solicitud.where {
+                id != ide &&
+                pasajero.id == obj.pasajero.id &&
+                aventon.fecha == obj.aventon.fecha
+            }.list()
+
+            return solicitudesCoincidentes.size() < 2
+        }
+        pasajero validator: { val, obj ->
+            return !val.isBaneado()
+        }
     }
 }

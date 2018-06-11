@@ -27,6 +27,19 @@ class Chofer {
         return null
     }
 
+    Boolean isBaneado() {
+        def contador = 0
+
+        for (aventon in aventones) {
+            def val = aventon.obtenerPuntuacionAventon()
+            if (val && val < 2) {
+                contador++
+            }
+        }
+
+        return contador >= 5
+    }
+
     static constraints = {
         vehiculo nullable: true
         ruta nullable: true

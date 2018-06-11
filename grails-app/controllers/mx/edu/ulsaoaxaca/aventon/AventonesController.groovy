@@ -217,6 +217,27 @@ class AventonesController {
         println solicitud
         println ""
 
+        if (estado == "Aceptada") {
+            def aceptadas = Solicitud.where {
+                id != solicitud.id &&
+                estado == estado &&
+                aventon.id == solicitud.aventon.id
+            }.list()
+
+            if ((aceptadas.size() + 1) == solicitud.aventon.limite) {
+                def otras = Solicitud.where {
+                    id != solicitud.id &&
+                    estado != estado &&
+                    aventon.id == solicitud.aventon.id
+                }.list()
+
+                otras.each {
+                    it.estado = "Rechazada"
+                    it.save()
+                }
+            }
+        }
+
         solicitud.estado = estado
         def intento = solicitud.save()
 

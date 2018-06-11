@@ -149,7 +149,7 @@
                                 <g:link action="ver" controller="aventones" id="${it.aventon.id}" class="btn btn-outline-secondary btn-sm">
                                     Ver avent&oacute;n
                                 </g:link>
-                                <g:if test="${it.aventon.fecha.format('dd/MM/yyyy') < fechaHoy}">
+                                <g:if test="${it.aventon.fecha.format('dd/MM/yyyy') < fechaHoy && it.estado == "Aceptada"}">
                                     <g:set var="pp" value="${it.puntuacionParaChofer}" />
                                     <div class="btn-group">
                                         <span id="star1${it.id}"

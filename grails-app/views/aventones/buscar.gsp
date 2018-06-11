@@ -41,7 +41,7 @@
         <table class="table" id="aventonesBuscados">
             <thead class="thead-dark">
                 <tr class="text-center">
-                    <th scope="col">Chofer</th>
+                    <!--<th scope="col">Chofer</th>-->
                     <th scope="col">M&aacute;x. pasajeros</th>
                     <th scope="col">Fecha y hora de salida</th>
                     <th scope="col">Acciones</th>
@@ -51,14 +51,14 @@
             <tbody class="text-center">
                 <g:each in="${aventones}">
                     <tr>
-                        <td><g:link class="text-left" action="perfil" controller="usuarios" id="${it.chofer.usuario.id}" class="">${it.chofer.usuario.persona.nombres}, ${it.chofer.usuario.username}</g:link></td>
+                        <!--<td><g:link class="text-left" action="perfil" controller="usuarios" id="${it.chofer.usuario.id}" class="">${it.chofer.usuario.persona.nombres}, ${it.chofer.usuario.username}</g:link></td>-->
                         <td>${it.limite}</td>
                         <td>${it.fecha.format('dd/MM/yyyy') + ' a las ' + it.hora}</td>
                         <td>
                             <div class="btn-group">
-                                <g:link action="ver" controller="aventones" id="${it.id}" class="btn btn-outline-secondary btn-sm">
+                                <!--<g:link action="ver" controller="aventones" id="${it.id}" class="btn btn-outline-secondary btn-sm">
                                     Ver detalle
-                                </g:link>
+                                </g:link>-->
                                 <button class="btn btn-outline-success btn-sm"
                                     data-toggle="modal"
                                     data-target="#modalParadas${it.id}">

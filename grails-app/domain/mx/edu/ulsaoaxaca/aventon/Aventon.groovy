@@ -39,7 +39,17 @@ class Aventon {
         limite min: 1, max: 10
         hora min: "05:30", max: "21:30"
         fecha min: new Date(), validator: { val, obj ->
-            return val[Calendar.DAY_OF_WEEK] != Calendar.SUNDAY
+            def ide = obj.id ?: 0
+            def aventonesCoincidentes = Aventon.where {
+                id != ide &&
+                chofer.id == obj.chofer.id &&
+                fecha == val
+            }.list()
+
+            return aventonesCoincidentes.size() < 2 && val[Calendar.DAY_OF_WEEK] != Calendar.SUNDAY
+        }
+        chofer validator: { val, obj ->
+            return !val.isBaneado()
         }
     }
 }

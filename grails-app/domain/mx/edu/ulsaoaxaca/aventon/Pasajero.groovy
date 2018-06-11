@@ -22,6 +22,22 @@ class Pasajero {
         return null
     }
 
+    Boolean isBaneado() {
+        def contador = 0
+
+        for (solicitud in solicitudes) {
+            if (
+                solicitud.estado == "Aceptada" &&
+                solicitud.puntuacionParaPasajero &&
+                solicitud.puntuacionParaPasajero < 2
+            ) {
+                contador++
+            }
+        }
+
+        return contador >= 5
+    }
+
     static constraints = {
     }
 }

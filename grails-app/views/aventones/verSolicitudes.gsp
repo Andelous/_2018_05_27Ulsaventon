@@ -41,18 +41,23 @@
                     <div class="col-md-6 mx-auto">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <g:link action="perfil" controller="usuarios" id="${it.pasajero.usuario.id}">
-                                    <strong>${it.pasajero.usuario.username}</strong> - ${it.pasajero.usuario.persona}
+                                <g:if test="${it.estado != "En revisión"}">
+                                    <g:link action="perfil" controller="usuarios" id="${it.pasajero.usuario.id}">
+                                        <strong>${it.pasajero.usuario.username}</strong> - ${it.pasajero.usuario.persona}
+                                    </g:link>
+                                </g:if>
+                                <g:else>
+                                    Solicitante desconocido
+                                </g:else>
 
-                                    <span class="float-right">
-                                        <span class="badge badge-pill badge-${
-                                            it.estado == 'Aceptada' ?
-                                                'success' :
-                                            it.estado == 'Rechazada' ?
-                                                'danger' : 'warning'
-                                        }">${it.estado}</span>
-                                    </span>
-                                </g:link>
+                                <span class="float-right">
+                                    <span class="badge badge-pill badge-${
+                                        it.estado == 'Aceptada' ?
+                                            'success' :
+                                        it.estado == 'Rechazada' ?
+                                            'danger' : 'warning'
+                                    }">${it.estado}</span>
+                                </span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-title mb-0">${it.parada.calle}</h4>
@@ -61,7 +66,9 @@
                             <div class="card-footer">
                                 <g:if test="${
                                     it.aventon.fecha.format('dd/MM/yyyy') >
-                                    fechaHoy.format('dd/MM/yyyy')
+                                    fechaHoy.format('dd/MM/yyyy') &&
+                                    it.estado != 'Aceptada' &&
+                                    it.estado != 'Rechazada'
                                 }">
                                     <div class="btn-group">
                                         <g:link action="cambiarEstadoSolicitud" controller="aventones" params="[id: it.id, estado: 'Aceptada']" class="btn btn-link btn-sm text-dark">
@@ -118,7 +125,7 @@
                                             </div>
                                         </g:if>
                                         <g:else>
-                                            <strong>Mañana podr&aacute;s calificar al pasajero</strong>
+                                            <strong>Podr&aacute;s calificar al pasajero un d&iacute;a despu&eacute;s del avent&oacute;n</strong>
                                         </g:else>
                                     </g:if>
                                     <g:else>
