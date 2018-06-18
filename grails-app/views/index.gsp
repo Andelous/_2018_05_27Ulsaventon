@@ -1,3 +1,10 @@
+<%@ page import="mx.edu.ulsaoaxaca.aventon.Usuario" %>
+<%@ page import="mx.edu.ulsaoaxaca.aventon.Pasajero" %>
+<%@ page import="mx.edu.ulsaoaxaca.aventon.Chofer" %>
+
+<%@ page import="java.text.DecimalFormat" %>
+<g:set var="df" value="${new DecimalFormat("#.0")}" />
+
 <!doctype html>
 <html>
 <head>
@@ -10,7 +17,7 @@
 
     <div class="row">
         <sec:ifAnyGranted roles="ROLE_BENEFICIARIO">
-            <div class="col-md">
+            <div class="col-md-4">
                 <h4>Acceso r&aacute;pido</h4>
                 <hr />
 
@@ -66,14 +73,126 @@
             </div>
 
             <div class="col-md">
-                <h4 class="text-center">Los mejores <strong>choferes</strong></h4>
+                <h4 class="text-center">Los mejores <strong id="tipoSeleccionado">choferes</strong></h4>
                 <hr />
+
+                <div class="row">
+                    <div class="col-md">
+                        <button type="button" class="btn btn-outline-secondary active btn-block btn-lg"
+                            onclick="
+                                $('#divResumenChoferes').collapse('show');
+                                $('#divResumenPasajeros').collapse('hide');
+                                botonActivo.classList.toggle('active', false);
+                                botonActivo = this;
+                                this.classList.toggle('active', true);
+                                document.getElementById('tipoSeleccionado').innerHTML = 'choferes';
+                            " id="btnChoferes">
+                            <span class="oi oi-compass text-success rounded p-2 bg-white"></span>&nbsp;
+                            Choferes
+                        </button>
+                    </div>
+
+                    <div class="col-md">
+                        <button type="button" class="btn btn-outline-secondary btn-block btn-lg"
+                            onclick="
+                                $('#divResumenChoferes').collapse('hide');
+                                $('#divResumenPasajeros').collapse('show');
+                                botonActivo.classList.toggle('active', false);
+                                botonActivo = this;
+                                this.classList.toggle('active', true);
+                                document.getElementById('tipoSeleccionado').innerHTML = 'pasajeros';
+                            " id="btnPasajeros">
+                            <span class="oi oi-person text-primary rounded py-2 px-2 bg-white"></span>&nbsp;
+                            Pasajeros
+                        </button>
+                    </div>
+                </div>
+
+                <br />
+
+                <div id="divResumenChoferes" class="collapse show">
+                    <table class="table" id="resumenChoferes">
+                        <thead class="thead-dark">
+                            <tr class="text-center">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Puntuaci&oacute;n</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-center">
+                            <g:each in="${Chofer.list()}">
+                                <% if (it.usuario.authorities[0].authority == 'ROLE_ADMINISTRADOR') continue; %>
+                                <tr>
+                                    <td>
+                                        <g:link controller="usuarios" action="perfil" id="${it.usuario.id}">
+                                            ${it.usuario.persona}
+                                        </g:link>
+                                    </td>
+                                    <td>
+                                        <g:set var="califChofer" value="${it.obtenerPuntuacion()}" />
+                                        <g:if test="${califChofer}">
+                                            <span class="oi oi-star rounded bg-secondary p-1" style="color:yellow"></span>
+                                            ${df.format(califChofer)}<small class="text-muted">/5</small>
+                                        </g:if>
+                                        <g:else>
+                                            <t></t>
+                                            <span class="oi oi-star rounded bg-secondary p-1"></span> Sin definir
+                                        </g:else>
+                                    </td>
+
+                                    <g:set var="isBaneado" value="${it.isBaneado()}" />
+                                    <td class="${isBaneado ? 'text-danger' : 'text-primary'}">
+                                        ${isBaneado ? 'Baneado' : 'Activo'}
+                                    </td>
+                                </tr>
+                            </g:each>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="divResumenPasajeros" class="collapse">
+                    <table class="table" id="resumenPasajeros">
+                        <thead class="thead-dark">
+                            <tr class="text-center">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Puntuaci&oacute;n</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-center">
+                            <g:each in="${Pasajero.list()}">
+                                <% if (it.usuario.authorities[0].authority == 'ROLE_ADMINISTRADOR') continue; %>
+                                <tr>
+                                    <td>
+                                        <g:link controller="usuarios" action="perfil" id="${it.usuario.id}">
+                                            ${it.usuario.persona}
+                                        </g:link>
+                                    </td>
+                                    <td>
+                                        <g:set var="califPasajero" value="${it.obtenerPuntuacion()}" />
+                                        <g:if test="${califPasajero}">
+                                            <span class="oi oi-star rounded bg-secondary p-1" style="color:yellow"></span>
+                                            ${df.format(califPasajero)}<small class="text-muted">/5</small>
+                                        </g:if>
+                                        <g:else>
+                                            <t></t>
+                                            <span class="oi oi-star rounded bg-secondary p-1"></span> Sin definir
+                                        </g:else>
+                                    </td>
+
+                                    <g:set var="isBaneado" value="${it.isBaneado()}" />
+                                    <td class="${isBaneado ? 'text-danger' : 'text-primary'}">
+                                        ${isBaneado ? 'Baneado' : 'Activo'}
+                                    </td>
+                                </tr>
+                            </g:each>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="col-md">
-                <h4 class="text-center">Los mejores <strong>pasajeros</strong></h4>
-                <hr />
-            </div>
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
             <div class="col-md-4 mx-auto">
@@ -173,5 +292,8 @@
 
 
 
+    <script type="text/javascript">
+        var botonActivo = document.getElementById("btnChoferes");
+    </script>
 </body>
 </html>

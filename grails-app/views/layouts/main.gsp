@@ -67,14 +67,24 @@
 
             $(document).ready(function() {
                 $('#aventonesDados').DataTable({
+                    "searching": false,
                     "order": [1, 'desc']
                 });
                 $('#aventonesPedidos').DataTable({
+                    "searching": false,
                     "order": [2, 'desc']
                 });
                 $('#aventonesBuscados').DataTable({
                     "searching": false,
-                    "order": [2, 'asc']
+                    "order": [1, 'asc']
+                });
+                $('#resumenChoferes').DataTable({
+                    "searching": false,
+                    "order": [1, 'desc']
+                });
+                $('#resumenPasajeros').DataTable({
+                    "searching": false,
+                    "order": [1, 'desc']
                 });
             } );
         </script>
